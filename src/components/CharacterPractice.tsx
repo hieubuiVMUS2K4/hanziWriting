@@ -1,26 +1,44 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import HanziWriter from 'hanzi-writer';
 
-type Props = { character: string; onComplete: () => void };
+type Props = { character: string; onComplete: () => void; onSkip: () => void };
 
-export default function CharacterPractice({ character, onComplete }: Props) {
+export default function CharacterPractice({ character, onComplete, onSkip }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
   const writerRef = useRef<HanziWriter | null>(null);
   const onCompleteRef = useRef(onComplete);
+  const onSkipRef = useRef(onSkip);
+  const mountedRef = useRef(false);
   const [message, setMessage] = useState('Đang tải dữ liệu nét…');
   const [ready, setReady] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
+  useEffect(() => { onSkipRef.current = onSkip; }, [onSkip]);
+
+  function startQuiz(writer: HanziWriter) {
+    writer.quiz({
+      onCorrectStroke: () => { if (mountedRef.current) setMessage('Đúng thứ tự nét, tiếp tục nhé.'); },
+      onMistake: () => { if (mountedRef.current) setMessage('Chưa đúng nét này. Thử lại theo gợi ý nhé.'); },
+      onComplete: () => {
+        if (!mountedRef.current) return;
+        setFinished(true);
+        setMessage('Hoàn thành chữ.');
+        window.setTimeout(() => { if (mountedRef.current) onCompleteRef.current(); }, 650);
+      },
+    });
+  }
 
   useEffect(() => {
     const host = hostRef.current;
     if (!host) return;
 
-    let active = true;
+    mountedRef.current = true;
     setMessage('Đang tải dữ liệu nét…');
     setReady(false);
     setFinished(false);
+    setLoadError(false);
 
     const writer = HanziWriter.create(host, character, {
       width: 300,
@@ -35,30 +53,21 @@ export default function CharacterPractice({ character, onComplete }: Props) {
       outlineColor: '#deded5',
       drawingWidth: 7,
       onLoadCharDataSuccess: () => {
-        if (!active) return;
+        if (!mountedRef.current) return;
         setReady(true);
         setMessage('Bắt đầu viết theo thứ tự nét.');
       },
       onLoadCharDataError: () => {
-        if (!active) return;
+        if (!mountedRef.current) return;
+        setLoadError(true);
         setMessage(`Không tìm thấy dữ liệu luyện viết cho chữ ${character}.`);
       },
     });
     writerRef.current = writer;
-    writer.quiz({
-      onCorrectStroke: () => { if (active) setMessage('Đúng thứ tự nét, tiếp tục nhé.'); },
-      onMistake: () => { if (active) setMessage('Chưa đúng nét này. Thử lại theo gợi ý nhé.'); },
-      onComplete: () => {
-        writer.hideCharacter();
-        if (!active) return;
-        setFinished(true);
-        setMessage('Hoàn thành chữ.');
-        window.setTimeout(() => { if (active) onCompleteRef.current(); }, 650);
-      },
-    });
+    startQuiz(writer);
 
     return () => {
-      active = false;
+      mountedRef.current = false;
       writer.cancelQuiz();
       writerRef.current = null;
       host.replaceChildren();
@@ -71,15 +80,7 @@ export default function CharacterPractice({ character, onComplete }: Props) {
     writer.cancelQuiz();
     setFinished(false);
     setMessage('Bắt đầu viết theo thứ tự nét.');
-    writer.quiz({
-      onCorrectStroke: () => setMessage('Đúng thứ tự nét, tiếp tục nhé.'),
-      onMistake: () => setMessage('Chưa đúng nét này. Thử lại theo gợi ý nhé.'),
-      onComplete: () => {
-        setFinished(true);
-        setMessage('Hoàn thành chữ.');
-        window.setTimeout(() => onCompleteRef.current(), 650);
-      },
-    });
+    startQuiz(writer);
   }
 
   function animate() {
@@ -88,16 +89,9 @@ export default function CharacterPractice({ character, onComplete }: Props) {
     writer.cancelQuiz();
     writer.animateCharacter({
       onComplete: () => {
+        if (!mountedRef.current) return;
         writer.hideCharacter();
-        writer.quiz({
-          onCorrectStroke: () => setMessage('Đúng thứ tự nét, tiếp tục nhé.'),
-          onMistake: () => setMessage('Chưa đúng nét này. Thử lại theo gợi ý nhé.'),
-          onComplete: () => {
-            setFinished(true);
-            setMessage('Hoàn thành chữ.');
-            window.setTimeout(() => onCompleteRef.current(), 650);
-          },
-        });
+        startQuiz(writer);
       },
     });
   }
@@ -105,17 +99,16 @@ export default function CharacterPractice({ character, onComplete }: Props) {
   return (
     <div className="character-practice">
       <div className="character-focus" lang="zh-Hans">{character}</div>
-      <div className="character-pronunciation">{character === '你' ? 'nǐ' : 'hǎo'}</div>
       <div className="writer-frame">
-        <div className="writer-grid" aria-hidden="true"><span /><span /></div>
         <div className="writer-host" ref={hostRef} aria-label={`Ô luyện viết chữ ${character}`} />
       </div>
       <p className="feedback" role="status" aria-live="polite">{message}</p>
       <div className="practice-actions">
-        <button className="button button-secondary" onClick={animate} disabled={!ready || finished} aria-label="Xem thứ tự nét">
+        <button className="button button-secondary" onClick={animate} disabled={!ready || finished || loadError} aria-label="Xem thứ tự nét">
           <span aria-hidden="true">↻</span> Xem thứ tự nét
         </button>
-        <button className="button button-quiet" onClick={reset} disabled={!ready} aria-label="Viết lại chữ hiện tại">Viết lại</button>
+        <button className="button button-quiet" onClick={reset} disabled={!ready || finished || loadError} aria-label="Viết lại chữ hiện tại">Viết lại</button>
+        {(loadError || ready) && <button className="button button-quiet" onClick={onSkipRef.current}>Bỏ qua chữ</button>}
       </div>
     </div>
   );

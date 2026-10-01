@@ -1,0 +1,1058 @@
+[
+  {
+    "id": "msutong1-001",
+    "word": "你好",
+    "pinyin": "ni3hao3",
+    "meaning": "xin chào"
+  },
+  {
+    "id": "msutong1-002",
+    "word": "老师",
+    "pinyin": "lao3shi1",
+    "meaning": "giáo viên"
+  },
+  {
+    "id": "msutong1-003",
+    "word": "您好",
+    "pinyin": "nin2hao3",
+    "meaning": "xin chào (lịch sự)"
+  },
+  {
+    "id": "msutong1-004",
+    "word": "你们",
+    "pinyin": "ni3men5",
+    "meaning": "các bạn"
+  },
+  {
+    "id": "msutong1-005",
+    "word": "王",
+    "pinyin": "Wang2",
+    "meaning": "họ Vương"
+  },
+  {
+    "id": "msutong1-006",
+    "word": "叫",
+    "pinyin": "jiao4",
+    "meaning": "gọi; tên là"
+  },
+  {
+    "id": "msutong1-007",
+    "word": "什么",
+    "pinyin": "shen2me5",
+    "meaning": "gì; cái gì"
+  },
+  {
+    "id": "msutong1-008",
+    "word": "名字",
+    "pinyin": "ming2zi5",
+    "meaning": "tên"
+  },
+  {
+    "id": "msutong1-009",
+    "word": "我",
+    "pinyin": "wo3",
+    "meaning": "tôi"
+  },
+  {
+    "id": "msutong1-010",
+    "word": "呢",
+    "pinyin": "ne5",
+    "meaning": "trợ từ hỏi lại/tiếp tục chủ đề"
+  },
+  {
+    "id": "msutong1-011",
+    "word": "是",
+    "pinyin": "shi4",
+    "meaning": "là"
+  },
+  {
+    "id": "msutong1-012",
+    "word": "哪",
+    "pinyin": "na3",
+    "meaning": "nào; cái nào"
+  },
+  {
+    "id": "msutong1-013",
+    "word": "国",
+    "pinyin": "guo2",
+    "meaning": "nước; quốc gia"
+  },
+  {
+    "id": "msutong1-014",
+    "word": "人",
+    "pinyin": "ren2",
+    "meaning": "người"
+  },
+  {
+    "id": "msutong1-015",
+    "word": "中国",
+    "pinyin": "Zhong1guo2",
+    "meaning": "Trung Quốc"
+  },
+  {
+    "id": "msutong1-016",
+    "word": "美国",
+    "pinyin": "Mei3guo2",
+    "meaning": "Mỹ"
+  },
+  {
+    "id": "msutong1-017",
+    "word": "南非",
+    "pinyin": "Nan2fei1",
+    "meaning": "Nam Phi"
+  },
+  {
+    "id": "msutong1-018",
+    "word": "越南",
+    "pinyin": "Yue4nan2",
+    "meaning": "Việt Nam"
+  },
+  {
+    "id": "msutong1-019",
+    "word": "英国",
+    "pinyin": "Ying1guo2",
+    "meaning": "Anh"
+  },
+  {
+    "id": "msutong1-020",
+    "word": "韩国",
+    "pinyin": "Han2guo2",
+    "meaning": "Hàn Quốc"
+  },
+  {
+    "id": "msutong1-021",
+    "word": "请问",
+    "pinyin": "qing3wen4",
+    "meaning": "xin hỏi"
+  },
+  {
+    "id": "msutong1-022",
+    "word": "贵姓",
+    "pinyin": "gui4xing4",
+    "meaning": "quý danh; họ"
+  },
+  {
+    "id": "msutong1-023",
+    "word": "这",
+    "pinyin": "zhe4",
+    "meaning": "này; cái này"
+  },
+  {
+    "id": "msutong1-024",
+    "word": "的",
+    "pinyin": "de5",
+    "meaning": "trợ từ sở hữu; của"
+  },
+  {
+    "id": "msutong1-025",
+    "word": "名片",
+    "pinyin": "ming2pian4",
+    "meaning": "danh thiếp"
+  },
+  {
+    "id": "msutong1-026",
+    "word": "对不起",
+    "pinyin": "dui4bu5qi3",
+    "meaning": "xin lỗi"
+  },
+  {
+    "id": "msutong1-027",
+    "word": "没有",
+    "pinyin": "mei2you3",
+    "meaning": "không có"
+  },
+  {
+    "id": "msutong1-028",
+    "word": "有",
+    "pinyin": "you3",
+    "meaning": "có"
+  },
+  {
+    "id": "msutong1-029",
+    "word": "没关系",
+    "pinyin": "mei2guan1xi5",
+    "meaning": "không sao"
+  },
+  {
+    "id": "msutong1-030",
+    "word": "很",
+    "pinyin": "hen3",
+    "meaning": "rất"
+  },
+  {
+    "id": "msutong1-031",
+    "word": "高兴",
+    "pinyin": "gao1xing4",
+    "meaning": "vui; vui mừng"
+  },
+  {
+    "id": "msutong1-032",
+    "word": "认识",
+    "pinyin": "ren4shi5",
+    "meaning": "quen biết"
+  },
+  {
+    "id": "msutong1-033",
+    "word": "也",
+    "pinyin": "ye3",
+    "meaning": "cũng"
+  },
+  {
+    "id": "msutong1-034",
+    "word": "马",
+    "pinyin": "ma5",
+    "meaning": "mã; họ Mã"
+  },
+  {
+    "id": "msutong1-035",
+    "word": "不",
+    "pinyin": "bu4",
+    "meaning": "không"
+  },
+  {
+    "id": "msutong1-036",
+    "word": "小姐",
+    "pinyin": "xiao3jie3",
+    "meaning": "cô; tiểu thư"
+  },
+  {
+    "id": "msutong1-037",
+    "word": "师傅",
+    "pinyin": "shi1fu5",
+    "meaning": "thầy; bác tài"
+  },
+  {
+    "id": "msutong1-038",
+    "word": "去",
+    "pinyin": "qu4",
+    "meaning": "đi"
+  },
+  {
+    "id": "msutong1-039",
+    "word": "哪里",
+    "pinyin": "na3li3",
+    "meaning": "đâu; ở đâu"
+  },
+  {
+    "id": "msutong1-040",
+    "word": "人民",
+    "pinyin": "ren2min2",
+    "meaning": "nhân dân"
+  },
+  {
+    "id": "msutong1-041",
+    "word": "广场",
+    "pinyin": "Guang3chang3",
+    "meaning": "quảng trường"
+  },
+  {
+    "id": "msutong1-042",
+    "word": "知道",
+    "pinyin": "zhi1dao4",
+    "meaning": "biết"
+  },
+  {
+    "id": "msutong1-043",
+    "word": "了",
+    "pinyin": "le5",
+    "meaning": "trợ từ chỉ thay đổi/hoàn thành"
+  },
+  {
+    "id": "msutong1-044",
+    "word": "远",
+    "pinyin": "yuan3",
+    "meaning": "xa"
+  },
+  {
+    "id": "msutong1-045",
+    "word": "近",
+    "pinyin": "jin4",
+    "meaning": "gần"
+  },
+  {
+    "id": "msutong1-046",
+    "word": "到",
+    "pinyin": "dao4",
+    "meaning": "đến; tới"
+  },
+  {
+    "id": "msutong1-047",
+    "word": "多少",
+    "pinyin": "duo1shao5",
+    "meaning": "bao nhiêu"
+  },
+  {
+    "id": "msutong1-048",
+    "word": "钱",
+    "pinyin": "qian2",
+    "meaning": "tiền"
+  },
+  {
+    "id": "msutong1-049",
+    "word": "块",
+    "pinyin": "kuai4",
+    "meaning": "đồng (tiền)"
+  },
+  {
+    "id": "msutong1-050",
+    "word": "谢谢",
+    "pinyin": "xie4xie5",
+    "meaning": "cảm ơn"
+  },
+  {
+    "id": "msutong1-051",
+    "word": "不客气",
+    "pinyin": "bu2ke4qi5",
+    "meaning": "không có gì"
+  },
+  {
+    "id": "msutong1-052",
+    "word": "再见",
+    "pinyin": "zai4jian4",
+    "meaning": "tạm biệt"
+  },
+  {
+    "id": "msutong1-053",
+    "word": "要",
+    "pinyin": "yao4",
+    "meaning": "muốn; cần"
+  },
+  {
+    "id": "msutong1-054",
+    "word": "吃",
+    "pinyin": "chi1",
+    "meaning": "ăn"
+  },
+  {
+    "id": "msutong1-055",
+    "word": "一点儿",
+    "pinyin": "yi4dian3r5",
+    "meaning": "một chút"
+  },
+  {
+    "id": "msutong1-056",
+    "word": "个",
+    "pinyin": "ge4",
+    "meaning": "cái; chiếc"
+  },
+  {
+    "id": "msutong1-057",
+    "word": "牛肉",
+    "pinyin": "niu2rou4",
+    "meaning": "thịt bò"
+  },
+  {
+    "id": "msutong1-058",
+    "word": "青菜",
+    "pinyin": "qing1cai4",
+    "meaning": "rau xanh"
+  },
+  {
+    "id": "msutong1-059",
+    "word": "还",
+    "pinyin": "hai2",
+    "meaning": "còn; vẫn"
+  },
+  {
+    "id": "msutong1-060",
+    "word": "两",
+    "pinyin": "liang3",
+    "meaning": "hai"
+  },
+  {
+    "id": "msutong1-061",
+    "word": "碗",
+    "pinyin": "wan3",
+    "meaning": "bát"
+  },
+  {
+    "id": "msutong1-062",
+    "word": "米饭",
+    "pinyin": "mi3fan4",
+    "meaning": "cơm"
+  },
+  {
+    "id": "msutong1-063",
+    "word": "快",
+    "pinyin": "kuai4",
+    "meaning": "nhanh"
+  },
+  {
+    "id": "msutong1-064",
+    "word": "饿",
+    "pinyin": "e4",
+    "meaning": "đói"
+  },
+  {
+    "id": "msutong1-065",
+    "word": "喝",
+    "pinyin": "he1",
+    "meaning": "uống"
+  },
+  {
+    "id": "msutong1-066",
+    "word": "杯",
+    "pinyin": "bei1",
+    "meaning": "cốc; ly"
+  },
+  {
+    "id": "msutong1-067",
+    "word": "茶",
+    "pinyin": "cha2",
+    "meaning": "trà"
+  },
+  {
+    "id": "msutong1-068",
+    "word": "奶茶",
+    "pinyin": "nai3cha2",
+    "meaning": "trà sữa"
+  },
+  {
+    "id": "msutong1-069",
+    "word": "大",
+    "pinyin": "da4",
+    "meaning": "to; lớn"
+  },
+  {
+    "id": "msutong1-070",
+    "word": "小",
+    "pinyin": "xiao3",
+    "meaning": "nhỏ"
+  },
+  {
+    "id": "msutong1-071",
+    "word": "还是",
+    "pinyin": "hai2shi4",
+    "meaning": "hay là (câu hỏi lựa chọn)"
+  },
+  {
+    "id": "msutong1-072",
+    "word": "咖啡",
+    "pinyin": "ka1fei1",
+    "meaning": "cà phê"
+  },
+  {
+    "id": "msutong1-073",
+    "word": "一共",
+    "pinyin": "yi2gong4",
+    "meaning": "tổng cộng"
+  },
+  {
+    "id": "msutong1-074",
+    "word": "在",
+    "pinyin": "zai4",
+    "meaning": "ở; tại"
+  },
+  {
+    "id": "msutong1-075",
+    "word": "工作",
+    "pinyin": "gong1zuo4",
+    "meaning": "làm việc"
+  },
+  {
+    "id": "msutong1-076",
+    "word": "苹果",
+    "pinyin": "ping2guo3",
+    "meaning": "quả táo"
+  },
+  {
+    "id": "msutong1-077",
+    "word": "留学生",
+    "pinyin": "liu2xue2sheng1",
+    "meaning": "du học sinh"
+  },
+  {
+    "id": "msutong1-078",
+    "word": "学生",
+    "pinyin": "xue2sheng1",
+    "meaning": "học sinh; sinh viên"
+  },
+  {
+    "id": "msutong1-079",
+    "word": "这儿",
+    "pinyin": "zher4",
+    "meaning": "ở đây"
+  },
+  {
+    "id": "msutong1-080",
+    "word": "这里",
+    "pinyin": "zhe4li3",
+    "meaning": "ở đây"
+  },
+  {
+    "id": "msutong1-081",
+    "word": "学习",
+    "pinyin": "xue2xi2",
+    "meaning": "học"
+  },
+  {
+    "id": "msutong1-082",
+    "word": "汉语",
+    "pinyin": "han4yu3",
+    "meaning": "tiếng Trung"
+  },
+  {
+    "id": "msutong1-083",
+    "word": "对",
+    "pinyin": "dui4",
+    "meaning": "đúng; đối với"
+  },
+  {
+    "id": "msutong1-084",
+    "word": "男朋友",
+    "pinyin": "nan2peng2you5",
+    "meaning": "bạn trai"
+  },
+  {
+    "id": "msutong1-085",
+    "word": "朋友",
+    "pinyin": "peng2you5",
+    "meaning": "bạn bè"
+  },
+  {
+    "id": "msutong1-086",
+    "word": "男",
+    "pinyin": "nan2",
+    "meaning": "nam; đàn ông"
+  },
+  {
+    "id": "msutong1-087",
+    "word": "做",
+    "pinyin": "zuo4",
+    "meaning": "làm"
+  },
+  {
+    "id": "msutong1-088",
+    "word": "大学",
+    "pinyin": "da4xue2",
+    "meaning": "đại học"
+  },
+  {
+    "id": "msutong1-089",
+    "word": "教",
+    "pinyin": "jiao1",
+    "meaning": "dạy"
+  },
+  {
+    "id": "msutong1-090",
+    "word": "英语",
+    "pinyin": "ying1yu3",
+    "meaning": "tiếng Anh"
+  },
+  {
+    "id": "msutong1-091",
+    "word": "女朋友",
+    "pinyin": "nü3peng2you5",
+    "meaning": "bạn gái"
+  },
+  {
+    "id": "msutong1-092",
+    "word": "她",
+    "pinyin": "ta1",
+    "meaning": "cô ấy"
+  },
+  {
+    "id": "msutong1-093",
+    "word": "他",
+    "pinyin": "ta1",
+    "meaning": "anh ấy"
+  },
+  {
+    "id": "msutong1-094",
+    "word": "中学",
+    "pinyin": "zhong1xue2",
+    "meaning": "trung học cơ sở"
+  },
+  {
+    "id": "msutong1-095",
+    "word": "高中",
+    "pinyin": "gao1zhong1",
+    "meaning": "trung học phổ thông"
+  },
+  {
+    "id": "msutong1-096",
+    "word": "小学",
+    "pinyin": "xiao3xue2",
+    "meaning": "trường tiểu học"
+  },
+  {
+    "id": "msutong1-097",
+    "word": "附近",
+    "pinyin": "fu4jin4",
+    "meaning": "gần đây; lân cận"
+  },
+  {
+    "id": "msutong1-098",
+    "word": "银行",
+    "pinyin": "yin2hang2",
+    "meaning": "ngân hàng"
+  },
+  {
+    "id": "msutong1-099",
+    "word": "家",
+    "pinyin": "jia1",
+    "meaning": "nhà; lượng từ cho cửa hàng/gia đình"
+  },
+  {
+    "id": "msutong1-100",
+    "word": "从",
+    "pinyin": "cong2",
+    "meaning": "từ"
+  },
+  {
+    "id": "msutong1-101",
+    "word": "往",
+    "pinyin": "wang3",
+    "meaning": "hướng về"
+  },
+  {
+    "id": "msutong1-102",
+    "word": "前",
+    "pinyin": "qian2",
+    "meaning": "phía trước"
+  },
+  {
+    "id": "msutong1-103",
+    "word": "走",
+    "pinyin": "zou3",
+    "meaning": "đi; đi bộ"
+  },
+  {
+    "id": "msutong1-104",
+    "word": "然后",
+    "pinyin": "ran2hou4",
+    "meaning": "sau đó"
+  },
+  {
+    "id": "msutong1-105",
+    "word": "左",
+    "pinyin": "zuo3",
+    "meaning": "bên trái"
+  },
+  {
+    "id": "msutong1-106",
+    "word": "拐",
+    "pinyin": "guai3",
+    "meaning": "rẽ"
+  },
+  {
+    "id": "msutong1-107",
+    "word": "饭店",
+    "pinyin": "fan4dian4",
+    "meaning": "nhà hàng; quán ăn"
+  },
+  {
+    "id": "msutong1-108",
+    "word": "就",
+    "pinyin": "jiu4",
+    "meaning": "liền; chính là"
+  },
+  {
+    "id": "msutong1-109",
+    "word": "对面",
+    "pinyin": "dui4mian4",
+    "meaning": "đối diện"
+  },
+  {
+    "id": "msutong1-110",
+    "word": "面",
+    "pinyin": "mian4",
+    "meaning": "phía; mặt"
+  },
+  {
+    "id": "msutong1-111",
+    "word": "书店",
+    "pinyin": "shu1dian4",
+    "meaning": "nhà sách"
+  },
+  {
+    "id": "msutong1-112",
+    "word": "超市",
+    "pinyin": "chao1shi4",
+    "meaning": "siêu thị"
+  },
+  {
+    "id": "msutong1-113",
+    "word": "右",
+    "pinyin": "you4",
+    "meaning": "bên phải"
+  },
+  {
+    "id": "msutong1-114",
+    "word": "今天",
+    "pinyin": "jin1tian1",
+    "meaning": "hôm nay"
+  },
+  {
+    "id": "msutong1-115",
+    "word": "真",
+    "pinyin": "zhen1",
+    "meaning": "thật; thật là"
+  },
+  {
+    "id": "msutong1-116",
+    "word": "漂亮",
+    "pinyin": "piao4liang5",
+    "meaning": "đẹp; xinh đẹp"
+  },
+  {
+    "id": "msutong1-117",
+    "word": "事",
+    "pinyin": "shi4",
+    "meaning": "việc; chuyện"
+  },
+  {
+    "id": "msutong1-118",
+    "word": "生日",
+    "pinyin": "sheng1ri4",
+    "meaning": "sinh nhật"
+  },
+  {
+    "id": "msutong1-119",
+    "word": "几",
+    "pinyin": "ji3",
+    "meaning": "mấy; bao nhiêu"
+  },
+  {
+    "id": "msutong1-120",
+    "word": "号",
+    "pinyin": "hao4",
+    "meaning": "ngày (trong tháng)"
+  },
+  {
+    "id": "msutong1-121",
+    "word": "月",
+    "pinyin": "yue4",
+    "meaning": "tháng"
+  },
+  {
+    "id": "msutong1-122",
+    "word": "快乐",
+    "pinyin": "kuai4le4",
+    "meaning": "vui vẻ"
+  },
+  {
+    "id": "msutong1-123",
+    "word": "星期五",
+    "pinyin": "xing1qi1wu3",
+    "meaning": "thứ Sáu"
+  },
+  {
+    "id": "msutong1-124",
+    "word": "星期",
+    "pinyin": "xing1qi1",
+    "meaning": "tuần; thứ"
+  },
+  {
+    "id": "msutong1-125",
+    "word": "有空儿",
+    "pinyin": "you3kong4r5",
+    "meaning": "rảnh"
+  },
+  {
+    "id": "msutong1-126",
+    "word": "空儿",
+    "pinyin": "kong4r5",
+    "meaning": "thời gian rảnh"
+  },
+  {
+    "id": "msutong1-127",
+    "word": "想",
+    "pinyin": "xiang3",
+    "meaning": "muốn; nghĩ"
+  },
+  {
+    "id": "msutong1-128",
+    "word": "请",
+    "pinyin": "qing3",
+    "meaning": "mời; xin"
+  },
+  {
+    "id": "msutong1-129",
+    "word": "晚饭",
+    "pinyin": "wan3fan4",
+    "meaning": "bữa tối"
+  },
+  {
+    "id": "msutong1-130",
+    "word": "为什么",
+    "pinyin": "wei4shen2me5",
+    "meaning": "tại sao"
+  },
+  {
+    "id": "msutong1-131",
+    "word": "太……了",
+    "pinyin": "tai4……le5",
+    "meaning": "quá… rồi"
+  },
+  {
+    "id": "msutong1-132",
+    "word": "那",
+    "pinyin": "na4",
+    "meaning": "vậy thì; kia"
+  },
+  {
+    "id": "msutong1-133",
+    "word": "晚上",
+    "pinyin": "wan3shang5",
+    "meaning": "buổi tối"
+  },
+  {
+    "id": "msutong1-134",
+    "word": "看",
+    "pinyin": "kan4",
+    "meaning": "xem; nhìn"
+  },
+  {
+    "id": "msutong1-135",
+    "word": "电影",
+    "pinyin": "dian4ying3",
+    "meaning": "phim"
+  },
+  {
+    "id": "msutong1-136",
+    "word": "学校",
+    "pinyin": "xue2xiao4",
+    "meaning": "trường học"
+  },
+  {
+    "id": "msutong1-137",
+    "word": "见",
+    "pinyin": "jian4",
+    "meaning": "gặp"
+  },
+  {
+    "id": "msutong1-138",
+    "word": "喜欢",
+    "pinyin": "xi3huan5",
+    "meaning": "thích"
+  },
+  {
+    "id": "msutong1-139",
+    "word": "非常",
+    "pinyin": "fei1chang2",
+    "meaning": "rất; vô cùng"
+  },
+  {
+    "id": "msutong1-140",
+    "word": "都",
+    "pinyin": "dou1",
+    "meaning": "đều"
+  },
+  {
+    "id": "msutong1-141",
+    "word": "明天",
+    "pinyin": "ming2tian1",
+    "meaning": "ngày mai"
+  },
+  {
+    "id": "msutong1-142",
+    "word": "电影院",
+    "pinyin": "dian4ying3yuan4",
+    "meaning": "rạp chiếu phim"
+  },
+  {
+    "id": "msutong1-143",
+    "word": "怎么",
+    "pinyin": "zen3me5",
+    "meaning": "thế nào; làm sao"
+  },
+  {
+    "id": "msutong1-144",
+    "word": "坐",
+    "pinyin": "zuo4",
+    "meaning": "ngồi; đi bằng"
+  },
+  {
+    "id": "msutong1-145",
+    "word": "地铁",
+    "pinyin": "di4tie3",
+    "meaning": "tàu điện ngầm"
+  },
+  {
+    "id": "msutong1-146",
+    "word": "出租车",
+    "pinyin": "chu1zu1che1",
+    "meaning": "xe taxi"
+  },
+  {
+    "id": "msutong1-147",
+    "word": "吧",
+    "pinyin": "ba5",
+    "meaning": "trợ từ biểu thị đề nghị/phỏng đoán"
+  },
+  {
+    "id": "msutong1-148",
+    "word": "又……又……",
+    "pinyin": "you4……you4……",
+    "meaning": "vừa… vừa…"
+  },
+  {
+    "id": "msutong1-149",
+    "word": "便宜",
+    "pinyin": "pian2yi5",
+    "meaning": "rẻ"
+  },
+  {
+    "id": "msutong1-150",
+    "word": "怎么样",
+    "pinyin": "zen3meyang4",
+    "meaning": "thế nào"
+  },
+  {
+    "id": "msutong1-151",
+    "word": "菜",
+    "pinyin": "cai4",
+    "meaning": "món ăn; rau"
+  },
+  {
+    "id": "msutong1-152",
+    "word": "有名",
+    "pinyin": "you3ming2",
+    "meaning": "nổi tiếng"
+  },
+  {
+    "id": "msutong1-153",
+    "word": "好吃",
+    "pinyin": "hao3chi1",
+    "meaning": "ngon"
+  },
+  {
+    "id": "msutong1-154",
+    "word": "走路",
+    "pinyin": "zou3lu4",
+    "meaning": "đi bộ"
+  },
+  {
+    "id": "msutong1-155",
+    "word": "公交车",
+    "pinyin": "gong1jiao1che1",
+    "meaning": "xe buýt"
+  },
+  {
+    "id": "msutong1-156",
+    "word": "口",
+    "pinyin": "kou3",
+    "meaning": "lượng từ chỉ thành viên gia đình"
+  },
+  {
+    "id": "msutong1-157",
+    "word": "爸爸",
+    "pinyin": "ba4ba5",
+    "meaning": "bố"
+  },
+  {
+    "id": "msutong1-158",
+    "word": "妈妈",
+    "pinyin": "ma1ma5",
+    "meaning": "mẹ"
+  },
+  {
+    "id": "msutong1-159",
+    "word": "弟弟",
+    "pinyin": "di4di5",
+    "meaning": "em trai"
+  },
+  {
+    "id": "msutong1-160",
+    "word": "妹妹",
+    "pinyin": "mei4mei5",
+    "meaning": "em gái"
+  },
+  {
+    "id": "msutong1-161",
+    "word": "照片",
+    "pinyin": "zhao4pian4",
+    "meaning": "ảnh"
+  },
+  {
+    "id": "msutong1-162",
+    "word": "律师",
+    "pinyin": "lü4shi1",
+    "meaning": "luật sư"
+  },
+  {
+    "id": "msutong1-163",
+    "word": "和",
+    "pinyin": "he2",
+    "meaning": "và; với"
+  },
+  {
+    "id": "msutong1-164",
+    "word": "今年",
+    "pinyin": "jin1nian2",
+    "meaning": "năm nay"
+  },
+  {
+    "id": "msutong1-165",
+    "word": "多大",
+    "pinyin": "duo1da4",
+    "meaning": "bao nhiêu tuổi"
+  },
+  {
+    "id": "msutong1-166",
+    "word": "岁",
+    "pinyin": "sui4",
+    "meaning": "tuổi"
+  },
+  {
+    "id": "msutong1-167",
+    "word": "家人",
+    "pinyin": "jia1ren2",
+    "meaning": "người nhà"
+  },
+  {
+    "id": "msutong1-168",
+    "word": "他们",
+    "pinyin": "ta1men5",
+    "meaning": "họ"
+  },
+  {
+    "id": "msutong1-169",
+    "word": "们",
+    "pinyin": "men5",
+    "meaning": "hậu tố số nhiều"
+  },
+  {
+    "id": "msutong1-170",
+    "word": "谁",
+    "pinyin": "shei2",
+    "meaning": "ai"
+  },
+  {
+    "id": "msutong1-171",
+    "word": "哥哥",
+    "pinyin": "ge1ge5",
+    "meaning": "anh trai"
+  },
+  {
+    "id": "msutong1-172",
+    "word": "姐姐",
+    "pinyin": "jie3jie5",
+    "meaning": "chị gái"
+  },
+  {
+    "id": "msutong1-173",
+    "word": "只",
+    "pinyin": "zhi1",
+    "meaning": "lượng từ cho động vật"
+  },
+  {
+    "id": "msutong1-174",
+    "word": "狗",
+    "pinyin": "gou3",
+    "meaning": "chó"
+  },
+  {
+    "id": "msutong1-175",
+    "word": "可爱",
+    "pinyin": "ke3ai4",
+    "meaning": "dễ thương"
+  },
+  {
+    "id": "msutong1-176",
+    "word": "医生",
+    "pinyin": "yi1sheng1",
+    "meaning": "bác sĩ"
+  }
+]
