@@ -1,0 +1,151 @@
+/* Keep the writing surface and its SVG at the same size on every screen. */
+.study-layout > *, .learning-layout > *, .intro-row > * { min-width: 0; }
+.writer-frame {
+  width: min(100%, 360px);
+  height: auto;
+  max-width: 360px;
+  max-height: none;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+}
+.character-practice { gap: 12px; }
+.character-focus { line-height: 1.25; }
+.word-hanzi, .word-pinyin, .word-meaning, .progress-word {
+  overflow-wrap: anywhere;
+}
+.character-chips { flex-wrap: wrap; }
+.practice-actions { flex-wrap: wrap; }
+.vocabulary-toggle { display: none; }
+.vocabulary-list { min-height: 0; }
+.vocabulary-word { overflow-wrap: anywhere; }
+
+@media (pointer: coarse) {
+  .button, .import-toggle, .vocabulary-item { min-height: 44px; }
+  .word-navigation .button { font-size: 12px; }
+}
+
+/* Tablet: leave sufficient width for the practice surface. */
+@media (max-width: 1100px) {
+  .study-main .learning-layout { grid-template-columns: minmax(0, 1fr); }
+  .study-main .word-card {
+    order: -1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 16px;
+    padding: 16px 20px;
+  }
+  .word-card-top { grid-column: 1 / -1; }
+  .study-main .word-card .word-hanzi {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    text-align: left;
+    font-size: 34px;
+    line-height: 1.4;
+    margin: 0;
+  }
+  .word-pinyin, .word-meaning {
+    grid-column: 1;
+    text-align: left;
+    margin: 0;
+    align-self: auto;
+  }
+  .character-chips {
+    grid-column: 2;
+    grid-row: 2 / 5;
+    align-content: center;
+    align-self: center;
+    max-width: 140px;
+    margin: 0;
+    padding: 0;
+  }
+  .word-divider, .word-note { display: none; }
+  .study-main .practice-card { min-height: 0; padding: 20px; }
+  .study-main .writer-stage { min-height: 0; padding: 18px 0; }
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    padding: 0 max(14px, env(safe-area-inset-left)) 0 max(14px, env(safe-area-inset-right));
+    padding-bottom: max(18px, env(safe-area-inset-bottom));
+  }
+  .topbar { min-height: 68px; height: auto; gap: 12px; padding: 10px 0; }
+  .workspace { padding-top: 24px; }
+  .intro-row { gap: 12px; align-items: center; margin-bottom: 20px; }
+  .eyebrow { font-size: 9px; line-height: 1.6; letter-spacing: .08em; }
+  h1 { font-size: 28px; }
+  .intro-copy { font-size: 12px; line-height: 1.6; }
+  .progress-word { display: none; }
+  .word-progress { flex-shrink: 0; }
+  .progress-caption { font-size: 10px; letter-spacing: .04em; }
+  .study-progress { flex-wrap: wrap; gap: 8px; font-size: 11px; margin: 0 0 16px; }
+  .progress-track { flex-basis: 100%; height: 5px; }
+  .study-layout { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .vocabulary-panel { position: static; min-height: 0; max-height: none; padding: 0 12px; }
+  .vocabulary-head { min-height: 52px; padding: 0; border-bottom: 0; }
+  .vocabulary-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--green);
+    font: 600 13px 'DM Sans', Arial, sans-serif;
+    cursor: pointer;
+  }
+  .vocabulary-toggle:focus-visible { outline: 3px solid #cfad93; outline-offset: 1px; }
+  .vocabulary-list { display: none; }
+  .vocabulary-panel.is-open .vocabulary-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    max-height: 280px;
+    overflow: auto;
+    padding: 8px 0 12px;
+    border-top: 1px solid var(--line);
+  }
+  .vocabulary-item {
+    min-width: 0;
+    min-height: 64px;
+    padding: 10px;
+    grid-template-columns: 18px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+  }
+  .vocabulary-check { grid-row: 1 / 3; justify-self: start; }
+  .vocabulary-word { grid-column: 2; grid-row: 1; font-size: 16px; }
+  .vocabulary-pinyin { grid-column: 2; grid-row: 2; font-size: 11px; }
+  .study-main .learning-layout { gap: 12px; }
+  .study-main .word-card { padding: 14px 16px; }
+  .study-main .word-card .word-hanzi { font-size: 32px; }
+  .word-pinyin, .word-meaning { font-size: 14px; line-height: 1.5; }
+  .character-chips { max-width: 110px; }
+  .study-main .practice-card { min-height: 0; padding: 16px 12px; }
+  .study-main .writer-stage { min-height: 0; padding: 16px 0; }
+  .feedback { min-height: 36px; margin: 0; font-size: 13px; line-height: 1.5; }
+  .practice-actions { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .practice-actions .button:first-child { grid-column: 1 / -1; }
+  .button, .import-toggle { min-height: 44px; font-size: 13px; padding: 8px 12px; }
+  .word-navigation { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding-top: 12px; }
+  .word-navigation .button { min-width: 0; min-height: 44px; font-size: 12px; padding: 8px; }
+  .word-navigation .button:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+  .practice-hint { font-size: 12px; line-height: 1.5; }
+  .complete-state { width: 100%; padding: 30px 8px; }
+  .complete-actions { width: 100%; flex-direction: column; }
+  .complete-actions .button { width: 100%; }
+  .import-panel { padding: 16px; }
+  .import-panel textarea { font-size: 16px; min-height: 200px; }
+  .import-footer { gap: 12px; }
+  .import-footer p { font-size: 12px; line-height: 1.6; }
+  .import-footer .button { width: 100%; }
+}
+
+@media (max-width: 360px) {
+  .brand-subtitle { font-size: 7px; letter-spacing: .06em; }
+  .intro-row { flex-wrap: wrap; }
+  .word-progress { text-align: left; }
+  .character-chips { grid-column: 1 / -1; grid-row: auto; max-width: none; }
+}

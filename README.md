@@ -45,9 +45,13 @@ npm run build
 
 ### Phase 6 — Responsive và hoàn thiện (đã hoàn thành)
 
-- Layout desktop chuyển sang danh sách cuộn ngang trên màn hình nhỏ.
+- Mobile hiển thị thông tin từ trước ô viết; danh sách từ thu gọn, mở bằng nút **Chọn từ**.
+- Ô viết tự điều chỉnh kích thước với `ResizeObserver` và API `updateDimensions` của Hanzi Writer để giữ đúng tọa độ nhận nét khi xoay/đổi kích thước màn hình.
+- Các nút trên thiết bị touch có vùng chạm tối thiểu 44px; form nhập dùng chữ 16px để dễ thao tác trên điện thoại.
 - Hỗ trợ thao tác touch/stylus trong vùng luyện; có trạng thái focus bàn phím và feedback đọc được bởi screen reader.
 - Thông báo khi không tải được dữ liệu nét và cho phép bỏ qua chữ đó.
+
+Đã kiểm tra bằng Chrome với viewport 320–1440px: không tràn ngang, chọn từ và nhập cấu trúc dài bằng touch, viết hoàn chỉnh chữ `你` rồi chuyển sang `好` sau khi resize giữa bài luyện. Các kiểm tra này dùng trình duyệt mô phỏng mobile; chưa kiểm tra trên điện thoại thật.
 
 ## Thêm dữ liệu mặc định
 

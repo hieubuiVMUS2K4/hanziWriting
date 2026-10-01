@@ -41,6 +41,7 @@ export default function App() {
   const [characterIndex, setCharacterIndex] = useState(() => Math.max(0, savedProgress.characterIndex));
   const [completedIds, setCompletedIds] = useState<string[]>(savedProgress.completedIds);
   const [showImporter, setShowImporter] = useState(false);
+  const [showVocabulary, setShowVocabulary] = useState(false);
   const [storageAvailable, setStorageAvailable] = useState(true);
 
   const item = vocabulary[wordIndex] ?? vocabulary[0];
@@ -63,6 +64,7 @@ export default function App() {
     if (index < 0 || index >= vocabulary.length) return;
     setWordIndex(index);
     setCharacterIndex(0);
+    setShowVocabulary(false);
   }
 
   function advanceCharacter() {
@@ -124,9 +126,14 @@ export default function App() {
         </div>
 
         <div className="study-layout">
-          <aside className="vocabulary-panel" aria-label="Danh sách từ vựng">
-            <div className="vocabulary-head"><span className="section-kicker">TỪ VỰNG</span><span>{vocabulary.length}</span></div>
-            <nav className="vocabulary-list" aria-label="Chọn từ để luyện">
+          <aside className={`vocabulary-panel ${showVocabulary ? 'is-open' : ''}`} aria-label="Danh sách từ vựng">
+            <div className="vocabulary-head">
+              <span className="section-kicker">TỪ VỰNG · {vocabulary.length}</span>
+              <button className="vocabulary-toggle" onClick={() => setShowVocabulary((show) => !show)} aria-expanded={showVocabulary} aria-controls="vocabulary-list">
+                {showVocabulary ? 'Thu gọn ↑' : 'Chọn từ ↓'}
+              </button>
+            </div>
+            <nav id="vocabulary-list" className="vocabulary-list" aria-label="Chọn từ để luyện">
               {vocabulary.map((entry, index) => (
                 <button key={`${entry.id}-${index}`} className={`vocabulary-item ${index === wordIndex ? 'is-active' : ''}`} onClick={() => selectWord(index)} aria-current={index === wordIndex ? 'true' : undefined}>
                   <span className="vocabulary-check">{completedIds.includes(entry.id) ? '✓' : ''}</span>

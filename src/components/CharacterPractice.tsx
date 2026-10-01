@@ -40,10 +40,11 @@ export default function CharacterPractice({ character, onComplete, onSkip }: Pro
     setFinished(false);
     setLoadError(false);
 
+    const size = Math.max(1, host.getBoundingClientRect().width);
     const writer = HanziWriter.create(host, character, {
-      width: 300,
-      height: 300,
-      padding: 22,
+      width: size,
+      height: size,
+      padding: size * 0.073,
       showCharacter: false,
       showOutline: true,
       showHintAfterMisses: 2,
@@ -65,9 +66,17 @@ export default function CharacterPractice({ character, onComplete, onSkip }: Pro
     });
     writerRef.current = writer;
     startQuiz(writer);
+    const observer = new ResizeObserver(([entry]) => {
+      const nextSize = entry.contentRect.width;
+      if (nextSize > 0) {
+        writer.updateDimensions({ width: nextSize, height: nextSize, padding: nextSize * 0.073 });
+      }
+    });
+    observer.observe(host);
 
     return () => {
       mountedRef.current = false;
+      observer.disconnect();
       writer.cancelQuiz();
       writerRef.current = null;
       host.replaceChildren();
