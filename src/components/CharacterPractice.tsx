@@ -8,22 +8,21 @@ type Props = {
   onSkip: () => void;
   drawingWidth: number;
   showOutline: boolean;
-  onDrawingWidthChange: (width: number) => void;
-  onShowOutlineChange: (show: boolean) => void;
+  hideHints: boolean;
 };
 type WriterControls = { reset: () => void; animate: () => void; outline: (show: boolean) => void };
 
-export default function CharacterPractice({ character, onComplete, onSkip, drawingWidth, showOutline, onDrawingWidthChange, onShowOutlineChange }: Props) {
+export default function CharacterPractice({ character, onComplete, onSkip, drawingWidth, showOutline, hideHints }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
   const controlsRef = useRef<WriterControls | null>(null);
-  const latestRef = useRef({ onComplete, showOutline });
+  const latestRef = useRef({ onComplete, showOutline, hideHints });
   const [message, setMessage] = useState('Đang tải dữ liệu nét…');
   const [ready, setReady] = useState(false);
   const [finished, setFinished] = useState(false);
   const [loadError, setLoadError] = useState(false);
   const [animating, setAnimating] = useState(false);
 
-  useEffect(() => { latestRef.current = { onComplete, showOutline }; }, [onComplete, showOutline]);
+  useEffect(() => { latestRef.current = { onComplete, showOutline, hideHints }; }, [onComplete, showOutline, hideHints]);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -54,7 +53,7 @@ export default function CharacterPractice({ character, onComplete, onSkip, drawi
       onLoadCharDataError: () => {
         if (!active) return;
         setLoadError(true);
-        setMessage(`Không tìm thấy dữ liệu luyện viết cho chữ ${character}.`);
+        setMessage(latestRef.current.hideHints ? 'Không tải được dữ liệu luyện viết. Bạn có thể bỏ qua chữ này.' : `Không tìm thấy dữ liệu luyện viết cho chữ ${character}.`);
       },
     });
 
@@ -85,6 +84,18 @@ export default function CharacterPractice({ character, onComplete, onSkip, drawi
     function applyOutline(show: boolean) {
       if (show) void writer.showOutline({ duration: 0 });
       else void writer.hideOutline({ duration: 0 });
+      if (animationActive && latestRef.current.hideHints) {
+        const token = ++animationId;
+        animationActive = false;
+        setAnimating(false);
+        void writer.pauseAnimation();
+        void writer.hideCharacter({ duration: 0 }).then(() => {
+          if (!active || token !== animationId || complete) return;
+          setMessage('Viết chữ Hán theo Pinyin và nghĩa.');
+          startQuiz();
+        });
+        return;
+      }
       // Restart from the first unfinished stroke to update hint behavior without losing correct strokes.
       if (!complete && !animationActive) startQuiz();
     }
@@ -117,7 +128,7 @@ export default function CharacterPractice({ character, onComplete, onSkip, drawi
           setMessage('Tiếp tục viết theo thứ tự nét.');
           applyOutline(latestRef.current.showOutline);
         }).catch(() => {
-          if (!active) return;
+          if (!active || token !== animationId) return;
           animationActive = false;
           setAnimating(false);
           setMessage('Không thể xem animation. Hãy thử viết lại.');
@@ -145,28 +156,20 @@ export default function CharacterPractice({ character, onComplete, onSkip, drawi
     };
   }, [character]);
 
-  useEffect(() => { controlsRef.current?.outline(showOutline); }, [showOutline]);
+  useEffect(() => { controlsRef.current?.outline(showOutline); }, [showOutline, hideHints]);
+  useEffect(() => {
+    if (loadError && hideHints) setMessage('Không tải được dữ liệu luyện viết. Bạn có thể bỏ qua chữ này.');
+  }, [loadError, hideHints]);
 
   return (
     <div className="character-practice" style={{ '--drawing-width': `${drawingWidth}px` } as CSSProperties}>
-      <div className="practice-settings">
-        <label className="outline-control">
-          <input type="checkbox" checked={showOutline} onChange={(event) => onShowOutlineChange(event.target.checked)} />
-          <span>Hiện nét mẫu</span>
-        </label>
-        <label className="pen-width-control" htmlFor="pen-width">
-          <span>Độ dày nét bút <output htmlFor="pen-width">{drawingWidth}px</output></span>
-          <input id="pen-width" type="range" min="2" max="16" step="1" value={drawingWidth} onChange={(event) => onDrawingWidthChange(Number(event.target.value))} />
-        </label>
-        {!showOutline && <p className="practice-mode-note">Tự viết, không có nét mẫu hay gợi ý tự động.</p>}
-      </div>
-      <div className="character-focus" lang="zh-Hans">{character}</div>
+      {hideHints ? <div className="hidden-character-caption">Viết theo Pinyin và nghĩa</div> : <div className="character-focus" lang="zh-Hans">{character}</div>}
       <div className="writer-frame">
-        <div className="writer-host" ref={hostRef} aria-label={`Ô luyện viết chữ ${character}`} />
+        <div className="writer-host" ref={hostRef} aria-label={hideHints ? 'Ô luyện viết' : `Ô luyện viết chữ ${character}`} />
       </div>
       <p className="feedback" role="status" aria-live="polite">{message}</p>
       <div className="practice-actions">
-        <button className="button button-secondary" onClick={() => controlsRef.current?.animate()} disabled={!ready || finished || loadError || animating}>
+        <button className="button button-secondary" onClick={() => controlsRef.current?.animate()} disabled={!ready || finished || loadError || animating || hideHints} title={hideHints ? 'Tắt ẩn gợi ý chữ Hán trong cài đặt để xem thứ tự nét.' : undefined}>
           <span aria-hidden="true">↻</span> Xem thứ tự nét
         </button>
         <button className="button button-quiet" onClick={() => controlsRef.current?.reset()} disabled={!ready || finished || loadError}>Viết lại</button>

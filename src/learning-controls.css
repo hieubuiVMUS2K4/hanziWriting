@@ -1,29 +1,54 @@
-.practice-settings {
-  width: 100%;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 10px 20px;
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #f8f7f2;
+.practice-head-tools { display: flex; align-items: center; gap: 10px; }
+.settings-menu { position: relative; }
+.settings-trigger, .settings-close {
+  display: grid; place-items: center; width: 32px; height: 32px;
+  padding: 0; border: 1px solid var(--line); border-radius: 7px;
+  background: transparent; color: var(--green); cursor: pointer;
 }
-.outline-control {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  font-size: 12px;
-  cursor: pointer;
+.settings-trigger:hover, .settings-trigger[aria-expanded="true"], .settings-close:hover { background: #edf1eb; }
+.settings-trigger:focus-visible, .settings-close:focus-visible, .settings-popover input:focus-visible {
+  outline: 3px solid #cfad93; outline-offset: 3px;
 }
-.outline-control input { width: 18px; height: 18px; accent-color: var(--green); }
+.settings-popover {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 20;
+  width: min(300px, calc(100vw - 56px)); padding: 14px;
+  display: grid; gap: 14px; border: 1px solid #d9ded3; border-radius: 10px;
+  background: var(--paper); box-shadow: 0 8px 24px #26352f1a;
+}
+.settings-popover-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.settings-popover-head h2 { margin: 0; font-size: 14px; font-weight: 600; }
+.settings-close { border: 0; font-size: 22px; }
+.settings-option { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; cursor: pointer; }
+.settings-option input { flex-shrink: 0; width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--green); }
+.settings-option strong { display: block; font-size: 13px; font-weight: 500; }
+.settings-option small { display: block; margin-top: 4px; font-size: 11px; line-height: 1.6; color: #647568; }
+.settings-option:has(input:disabled) { cursor: default; opacity: .65; }
 .pen-width-control { display: grid; gap: 4px; min-width: 0; font-size: 12px; }
 .pen-width-control > span { display: flex; justify-content: space-between; gap: 8px; }
 .pen-width-control output { color: var(--green); font-variant-numeric: tabular-nums; }
 .pen-width-control input { width: 100%; min-width: 0; height: 28px; margin: 0; accent-color: var(--green); cursor: pointer; }
-.practice-mode-note { grid-column: 1 / -1; margin: 0; font-size: 11px; line-height: 1.5; color: #647568; }
-.practice-settings input:focus-visible { outline: 3px solid #cfad93; outline-offset: 3px; border-radius: 3px; }
+.hidden-character-caption { font-size: 12px; color: #647568; line-height: 1.5; }
+.study-main .word-card .word-hanzi.hidden-word-prompt {
+  font: 500 15px/1.5 'DM Sans', Arial, sans-serif; letter-spacing: 0; color: #647568;
+}
+.study-progress { display: grid; grid-template-columns: minmax(0, 1fr); gap: 7px; }
+.progress-summary { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--green); }
+.progress-summary strong { font-weight: 500; }
+.progress-summary > span { font-weight: 700; font-variant-numeric: tabular-nums; }
+.study-progress .progress-track { height: 5px; width: 100%; }
+.progress-detail { font-size: 11px; line-height: 1.6; }
+.word-completion { display: grid; gap: 6px; margin: 10px 0 0; font-size: 11px; color: #647568; }
+.word-completion-track { height: 3px; border-radius: 4px; background: #e9e7df; overflow: hidden; }
+.word-completion-track span { display: block; height: 100%; background: #83977e; transition: width .2s ease; }
+.word-completion.is-complete { color: var(--green); }
+.vocabulary-item { grid-template-rows: auto auto auto; row-gap: 2px; }
+.vocabulary-check { grid-row: 1 / 4; }
+.vocabulary-status { grid-column: 2; grid-row: 3; font-size: 10px; line-height: 1.5; color: #777d74; }
+.vocabulary-item.is-complete { background: #f0f4ed; }
+.vocabulary-item.is-complete.is-active { background: #e5eddf; }
+.vocabulary-item.is-complete .vocabulary-check { background: var(--green); color: white; }
+.vocabulary-item.is-complete .vocabulary-status, .level-tag.is-complete { color: var(--green); }
+.level-tag.is-complete { background: #edf1eb; border-color: #d6e0d2; }
 /* Hanzi Writer SVG user paths use rounded joins; its model strokes use miter joins. */
 .writer-host svg path[stroke-linejoin="round"] {
   stroke-width: var(--drawing-width, 7px);
@@ -46,13 +71,16 @@
 .import-footer .button { min-height: 44px; white-space: normal; }
 .import-errors { margin: 12px 0 0; padding: 12px 16px 12px 32px; border-radius: 7px; background: #fff0e9; overflow-wrap: anywhere; max-height: 180px; overflow: auto; }
 @media (max-width: 760px) {
-  .practice-settings { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 10px 12px; }
-  .outline-control, .pen-width-control { font-size: 13px; }
+  .settings-trigger, .settings-close { width: 44px; height: 44px; }
+  .pen-width-control { font-size: 13px; }
   .pen-width-control input { height: 44px; }
-  .practice-mode-note { grid-column: 1; }
   .import-panel { padding: 16px; }
   .import-heading h2 { font-size: 18px; }
   .import-examples { grid-template-columns: minmax(0, 1fr); gap: 8px; margin-bottom: 16px; }
   .import-footer { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .import-footer .button { width: 100%; }
+}
+@media (pointer: coarse) {
+  .settings-trigger, .settings-close { width: 44px; height: 44px; }
+  .pen-width-control input { height: 44px; }
 }

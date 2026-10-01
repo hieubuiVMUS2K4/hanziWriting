@@ -2,6 +2,8 @@
 import seedVocabulary from './data/vocabulary.json';
 import CharacterPractice from './components/CharacterPractice';
 import ImportVocabulary from './components/ImportVocabulary';
+import PracticeSettings from './components/PracticeSettings';
+import type { PracticePreferences } from './components/PracticeSettings';
 import type { VocabularyItem } from './types/vocabulary';
 import { isVocabularyList } from './utils/vocabularyParser';
 import { calculateProgress, completedPositions, getCharacters, restoreProgress } from './utils/progress';
@@ -34,15 +36,16 @@ function readProgress(vocabulary: VocabularyItem[]) {
   return restoreProgress(vocabulary, null);
 }
 
-function readSettings() {
+function readSettings(): PracticePreferences {
   try {
     const raw = JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? 'null');
     return {
       drawingWidth: typeof raw?.drawingWidth === 'number' && Number.isFinite(raw.drawingWidth)
         ? Math.max(2, Math.min(16, raw.drawingWidth)) : 7,
       showOutline: typeof raw?.showOutline === 'boolean' ? raw.showOutline : true,
+      hideHints: typeof raw?.hideHints === 'boolean' ? raw.hideHints : false,
     };
-  } catch { return { drawingWidth: 7, showOutline: true }; }
+  } catch { return { drawingWidth: 7, showOutline: true, hideHints: false }; }
 }
 
 export default function App() {
@@ -68,6 +71,9 @@ export default function App() {
   const isComplete = Boolean(item && completedIds.includes(item.id));
   const progress = calculateProgress(vocabulary, completion);
   const totalProgress = progress.percent;
+  const unfinishedIndexes = vocabulary.map((_, index) => index).filter((index) => !completedIds.includes(vocabulary[index].id));
+  const nextUnfinishedIndex = unfinishedIndexes.find((index) => index > wordIndex) ?? unfinishedIndexes[0];
+  const listComplete = progress.finishedWords === vocabulary.length;
 
   useEffect(() => {
     try {
@@ -147,13 +153,14 @@ export default function App() {
           </div>
           <div className="word-progress">
             <span className="progress-caption">TỪ {wordIndex + 1} / {vocabulary.length}</span>
-            <span className="progress-word">{item.word}</span>
+            {!settings.hideHints && <span className="progress-word">{item.word}</span>}
           </div>
         </div>
 
         <div className="study-progress" aria-label={`Tiến độ ${totalProgress}%`}>
+          <div className="progress-summary"><strong>{listComplete ? '✓ Hoàn thành danh sách' : 'Tiến độ học'}</strong><span>{totalProgress}%</span></div>
           <div className="progress-track" role="progressbar" aria-label="Chữ đã viết đúng" aria-valuemin={0} aria-valuemax={100} aria-valuenow={totalProgress}><span style={{ width: `${totalProgress}%` }} /></div>
-          <span>{totalProgress}% · {progress.finishedCharacters}/{progress.totalCharacters} chữ · {progress.finishedWords}/{vocabulary.length} từ hoàn thành</span>
+          <span className="progress-detail">{progress.finishedWords}/{vocabulary.length} từ hoàn thành · {progress.finishedCharacters}/{progress.totalCharacters} chữ đã viết đúng</span>
         </div>
 
         <div className="study-layout">
@@ -165,13 +172,19 @@ export default function App() {
               </button>
             </div>
             <nav id="vocabulary-list" className="vocabulary-list" aria-label="Chọn từ để luyện">
-              {vocabulary.map((entry, index) => (
-                <button key={`${entry.id}-${index}`} className={`vocabulary-item ${index === wordIndex ? 'is-active' : ''}`} onClick={() => selectWord(index)} aria-current={index === wordIndex ? 'true' : undefined}>
-                  <span className="vocabulary-check">{completedIds.includes(entry.id) ? '✓' : ''}</span>
-                  <span className="vocabulary-word">{entry.word}</span>
-                  <span className="vocabulary-pinyin">{formatPinyin(entry.pinyin) || '—'}</span>
-                </button>
-              ))}
+              {vocabulary.map((entry, index) => {
+                const finished = completedPositions(entry, completion).length;
+                const count = getCharacters(entry.word).length;
+                const done = completedIds.includes(entry.id);
+                return (
+                  <button key={`${entry.id}-${index}`} className={`vocabulary-item ${index === wordIndex ? 'is-active' : ''} ${done ? 'is-complete' : ''}`} onClick={() => selectWord(index)} aria-current={index === wordIndex ? 'true' : undefined}>
+                    <span className="vocabulary-check" aria-hidden="true">{done ? '✓' : finished ? '◐' : '○'}</span>
+                    <span className="vocabulary-word">{settings.hideHints ? `Từ ${index + 1}` : entry.word}</span>
+                    <span className="vocabulary-pinyin">{formatPinyin(entry.pinyin) || 'Chưa có Pinyin'}</span>
+                    <span className="vocabulary-status">{done ? '✓ Hoàn thành' : finished ? `Đang học · ${finished}/${count} chữ` : 'Chưa hoàn thành'}</span>
+                  </button>
+                );
+              })}
             </nav>
             {!storageAvailable && <p className="storage-warning" role="status">Không thể lưu trên trình duyệt này.</p>}
           </aside>
@@ -181,17 +194,24 @@ export default function App() {
               <section className="practice-card" aria-label="Khu vực luyện viết">
                 <div className="practice-card-head">
                   <span className="section-kicker">LUYỆN VIẾT</span>
-                  <span className="character-count">CHỮ {Math.min(characterIndex + 1, characters.length)} / {characters.length}</span>
+                  <div className="practice-head-tools">
+                    <span className="character-count">CHỮ {Math.min(characterIndex + 1, characters.length)} / {characters.length}</span>
+                    <PracticeSettings key={item.id} value={settings} onChange={setSettings} />
+                  </div>
+                </div>
+                <div className={`word-completion ${isComplete ? 'is-complete' : ''}`}>
+                  <span>{isComplete ? '✓ Đã hoàn thành từ này' : `${finishedPositions.length}/${characters.length} chữ đã hoàn thành`}</span>
+                  <div className="word-completion-track" role="progressbar" aria-label="Tiến độ từ hiện tại" aria-valuemin={0} aria-valuemax={characters.length} aria-valuenow={finishedPositions.length}><span style={{ width: `${characters.length ? finishedPositions.length / characters.length * 100 : 0}%` }} /></div>
                 </div>
                 <div className="writer-stage">
                   {isComplete ? (
                     <div className="complete-state" role="status">
                       <span className="complete-mark" aria-hidden="true">✓</span>
-                      <strong>Hoàn thành từ này!</strong>
-                      <span>Bạn đã luyện xong {item.word}.</span>
+                      <strong>{listComplete ? 'Hoàn thành cả danh sách!' : 'Hoàn thành từ này!'}</strong>
+                      <span>{settings.hideHints ? 'Bạn đã viết đúng mọi chữ trong từ này.' : `Bạn đã luyện xong ${item.word}.`}</span>
                       <div className="complete-actions">
                         <button className="button button-secondary" onClick={restartWord}>Luyện lại từ này</button>
-                        <button className="button button-primary" onClick={advanceWord} disabled={wordIndex >= vocabulary.length - 1}>Từ tiếp theo →</button>
+                        <button className="button button-primary" onClick={() => { if (nextUnfinishedIndex !== undefined) selectWord(nextUnfinishedIndex); }} disabled={nextUnfinishedIndex === undefined}>Từ chưa hoàn thành →</button>
                       </div>
                     </div>
                   ) : currentCharacter ? (
@@ -201,13 +221,11 @@ export default function App() {
                       onComplete={advanceCharacter}
                       onSkip={skipCharacter}
                       drawingWidth={settings.drawingWidth}
-                      showOutline={settings.showOutline}
-                      onDrawingWidthChange={(drawingWidth) => setSettings((current) => ({ ...current, drawingWidth }))}
-                      onShowOutlineChange={(showOutline) => setSettings((current) => ({ ...current, showOutline }))}
+                      showOutline={settings.showOutline && !settings.hideHints}
+                      hideHints={settings.hideHints}
                     />
                   ) : <div className="complete-state"><strong>Từ này không có ký tự để luyện.</strong><button className="button button-primary" onClick={advanceWord}>Tiếp theo →</button></div>}
                 </div>
-                {!isComplete && <div className="practice-hint">Đã viết đúng {finishedPositions.length}/{characters.length} chữ trong từ này.</div>}
                 <div className="word-navigation">
                   <button className="button button-quiet" onClick={previousWord} disabled={wordIndex === 0}>← Từ trước</button>
                   <button className="button button-secondary" onClick={advanceWord} disabled={wordIndex >= vocabulary.length - 1}>Bỏ qua từ</button>
@@ -216,16 +234,16 @@ export default function App() {
               </section>
 
               <aside className="word-card" aria-label="Thông tin từ vựng">
-                <div className="word-card-top"><span className="section-kicker">TỪ VỰNG</span><span className="level-tag">{isComplete ? 'ĐÃ HỌC' : 'ĐANG HỌC'}</span></div>
-                <div className="word-hanzi" lang="zh-Hans">{item.word}</div>
+                <div className="word-card-top"><span className="section-kicker">TỪ VỰNG</span><span className={`level-tag ${isComplete ? 'is-complete' : ''}`}>{isComplete ? '✓ HOÀN THÀNH' : 'ĐANG HỌC'}</span></div>
+                {settings.hideHints ? <div className="word-hanzi hidden-word-prompt">Tự nhớ chữ Hán</div> : <div className="word-hanzi" lang="zh-Hans">{item.word}</div>}
                 <div className="word-pinyin">{formatPinyin(item.pinyin) || 'Chưa có Pinyin'}</div>
                 <div className="word-meaning">{item.meaning || 'Chưa có nghĩa tiếng Việt'}</div>
                 <div className="word-divider" />
                 <p className="word-note">Mỗi chữ được luyện riêng theo thứ tự trong từ. Có thể chọn từ khác trong danh sách bất cứ lúc nào.</p>
                 <div className="character-chips" aria-label="Các chữ trong từ">
                   {characters.map((character, index) => (
-                    <span key={`${character}-${index}`} className={`character-chip ${index === characterIndex && !isComplete ? 'is-current' : ''} ${finishedPositions.includes(index) ? 'is-done' : ''}`}>
-                      {finishedPositions.includes(index) ? '✓' : character}
+                    <span key={`${character}-${index}`} className={`character-chip ${index === characterIndex && !isComplete ? 'is-current' : ''} ${finishedPositions.includes(index) ? 'is-done' : ''}`} aria-label={`Chữ ${index + 1}: ${finishedPositions.includes(index) ? 'hoàn thành' : 'chưa hoàn thành'}`}>
+                      {finishedPositions.includes(index) ? '✓' : settings.hideHints ? index + 1 : character}
                     </span>
                   ))}
                 </div>
