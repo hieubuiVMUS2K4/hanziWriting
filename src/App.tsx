@@ -4,80 +4,109 @@ import CharacterPractice from './components/CharacterPractice';
 import ImportVocabulary from './components/ImportVocabulary';
 import type { VocabularyItem } from './types/vocabulary';
 import { isVocabularyList } from './utils/vocabularyParser';
+import { calculateProgress, completedPositions, getCharacters, restoreProgress } from './utils/progress';
+import type { CharacterCompletion } from './utils/progress';
+import { formatPinyin } from './utils/pinyin';
 
 const VOCAB_KEY = 'hanziwriting.vocabulary.v1';
-const PROGRESS_KEY = 'hanziwriting.progress.v1';
+const PROGRESS_KEY = 'hanziwriting.progress.v2';
+const SETTINGS_KEY = 'hanziwriting.settings.v1';
 const DEFAULT_VOCABULARY = seedVocabulary as VocabularyItem[];
-type SavedProgress = { wordIndex: number; characterIndex: number; completedIds: string[] };
 
 function readVocabulary(): VocabularyItem[] {
   try {
     const saved = localStorage.getItem(VOCAB_KEY);
     if (!saved) return DEFAULT_VOCABULARY;
     const parsed: unknown = JSON.parse(saved);
-    return isVocabularyList(parsed) ? parsed : DEFAULT_VOCABULARY;
+    if (!isVocabularyList(parsed)) return DEFAULT_VOCABULARY;
+    return parsed.map((item) => {
+      const seed = DEFAULT_VOCABULARY.find((entry) => entry.id === item.id && entry.word === item.word);
+      return seed ? { ...item, pinyin: seed.pinyin, meaning: seed.meaning } : item;
+    });
   } catch { return DEFAULT_VOCABULARY; }
 }
 
-function readProgress(): SavedProgress {
+function readProgress(vocabulary: VocabularyItem[]) {
   try {
-    const parsed: unknown = JSON.parse(localStorage.getItem(PROGRESS_KEY) ?? 'null');
-    if (typeof parsed === 'object' && parsed !== null &&
-      Number.isInteger((parsed as SavedProgress).wordIndex) &&
-      Number.isInteger((parsed as SavedProgress).characterIndex) &&
-      Array.isArray((parsed as SavedProgress).completedIds)) return parsed as SavedProgress;
+    const parsed: unknown = JSON.parse(localStorage.getItem(PROGRESS_KEY) ?? localStorage.getItem('hanziwriting.progress.v1') ?? 'null');
+    return restoreProgress(vocabulary, parsed);
   } catch { /* Use the clean start below when local storage is unavailable. */ }
-  return { wordIndex: 0, characterIndex: 0, completedIds: [] };
+  return restoreProgress(vocabulary, null);
 }
 
-function splitWord(word: string): string[] {
-  return Array.from(word.replace(/[……]/gu, ''));
+function readSettings() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? 'null');
+    return {
+      drawingWidth: typeof raw?.drawingWidth === 'number' && Number.isFinite(raw.drawingWidth)
+        ? Math.max(2, Math.min(16, raw.drawingWidth)) : 7,
+      showOutline: typeof raw?.showOutline === 'boolean' ? raw.showOutline : true,
+    };
+  } catch { return { drawingWidth: 7, showOutline: true }; }
 }
 
 export default function App() {
   const [vocabulary, setVocabulary] = useState<VocabularyItem[]>(readVocabulary);
-  const [savedProgress] = useState<SavedProgress>(readProgress);
+  const [savedProgress] = useState(() => readProgress(vocabulary));
   const [wordIndex, setWordIndex] = useState(() => Math.max(0, Math.min(savedProgress.wordIndex, vocabulary.length - 1)));
   const [characterIndex, setCharacterIndex] = useState(() => Math.max(0, savedProgress.characterIndex));
-  const [completedIds, setCompletedIds] = useState<string[]>(savedProgress.completedIds);
+  const [completion, setCompletion] = useState<CharacterCompletion>(savedProgress.completedCharacters);
+  const [settings, setSettings] = useState(readSettings);
+  const [notice, setNotice] = useState('');
   const [showImporter, setShowImporter] = useState(false);
   const [showVocabulary, setShowVocabulary] = useState(false);
   const [storageAvailable, setStorageAvailable] = useState(true);
 
   const item = vocabulary[wordIndex] ?? vocabulary[0];
-  const characters = useMemo(() => splitWord(item?.word ?? ''), [item?.word]);
+  const characters = useMemo(() => getCharacters(item?.word ?? ''), [item?.word]);
+  const finishedPositions = item ? completedPositions(item, completion) : [];
+  const completedIds = vocabulary.filter((entry) => {
+    const count = getCharacters(entry.word).length;
+    return count > 0 && completedPositions(entry, completion).length === count;
+  }).map((entry) => entry.id);
   const currentCharacter = characters[Math.min(characterIndex, Math.max(characters.length - 1, 0))] ?? '';
   const isComplete = Boolean(item && completedIds.includes(item.id));
-  const totalProgress = vocabulary.length
-    ? Math.min(100, Math.round(((wordIndex + (isComplete ? 1 : characterIndex / Math.max(characters.length, 1))) / vocabulary.length) * 100))
-    : 0;
+  const progress = calculateProgress(vocabulary, completion);
+  const totalProgress = progress.percent;
 
   useEffect(() => {
     try {
       localStorage.setItem(VOCAB_KEY, JSON.stringify(vocabulary));
-      localStorage.setItem(PROGRESS_KEY, JSON.stringify({ wordIndex, characterIndex, completedIds }));
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify({ wordIndex, characterIndex, completedCharacters: completion }));
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
       setStorageAvailable(true);
     } catch { setStorageAvailable(false); }
-  }, [vocabulary, wordIndex, characterIndex, completedIds]);
+  }, [vocabulary, wordIndex, characterIndex, completion, settings]);
 
   function selectWord(index: number) {
     if (index < 0 || index >= vocabulary.length) return;
     setWordIndex(index);
-    setCharacterIndex(0);
+    const positions = completedPositions(vocabulary[index], completion);
+    const next = getCharacters(vocabulary[index].word).findIndex((_, position) => !positions.includes(position));
+    setCharacterIndex(Math.max(0, next));
     setShowVocabulary(false);
+    setNotice('');
   }
 
   function advanceCharacter() {
     if (!item) return;
-    if (characterIndex < characters.length - 1) {
-      setCharacterIndex((index) => index + 1);
-      return;
-    }
-    setCompletedIds((ids) => ids.includes(item.id) ? ids : [...ids, item.id]);
+    const finished = [...new Set([...finishedPositions, characterIndex])];
+    setCompletion((current) => ({ ...current, [item.id]: finished }));
+    const missing = characters.map((_, index) => index).filter((index) => !finished.includes(index));
+    const next = missing.find((index) => index > characterIndex) ?? missing[0];
+    if (next !== undefined) setCharacterIndex(next);
+  }
+
+  function skipCharacter() {
+    const next = characters.findIndex((_, index) => index > characterIndex && !finishedPositions.includes(index));
+    if (next >= 0) setCharacterIndex(next);
+    else if (wordIndex < vocabulary.length - 1) selectWord(wordIndex + 1);
+    else setCharacterIndex(Math.max(0, characters.findIndex((_, index) => !finishedPositions.includes(index))));
+    setNotice('Chữ bỏ qua chưa được tính vào tiến độ.');
   }
 
   function restartWord() {
-    if (item) setCompletedIds((ids) => ids.filter((id) => id !== item.id));
+    if (item) setCompletion((current) => ({ ...current, [item.id]: [] }));
     setCharacterIndex(0);
   }
 
@@ -85,7 +114,8 @@ export default function App() {
     setVocabulary(items);
     setWordIndex(0);
     setCharacterIndex(0);
-    setCompletedIds([]);
+    setCompletion({});
+    setNotice(`Đã nhập ${items.length} dòng từ vựng. Bắt đầu danh sách mới.`);
   }
 
   function advanceWord() { selectWord(Math.min(wordIndex + 1, vocabulary.length - 1)); }
@@ -106,6 +136,7 @@ export default function App() {
       </header>
 
       {showImporter && <div id="import-area"><ImportVocabulary onImport={(items) => { importItems(items); setShowImporter(false); }} /></div>}
+      {notice && <p className="app-notice" role="status">{notice}</p>}
 
       <section className="workspace" aria-labelledby="page-title">
         <div className="intro-row">
@@ -121,8 +152,8 @@ export default function App() {
         </div>
 
         <div className="study-progress" aria-label={`Tiến độ ${totalProgress}%`}>
-          <div className="progress-track"><span style={{ width: `${totalProgress}%` }} /></div>
-          <span>{completedIds.length} / {vocabulary.length} từ hoàn thành</span>
+          <div className="progress-track" role="progressbar" aria-label="Chữ đã viết đúng" aria-valuemin={0} aria-valuemax={100} aria-valuenow={totalProgress}><span style={{ width: `${totalProgress}%` }} /></div>
+          <span>{totalProgress}% · {progress.finishedCharacters}/{progress.totalCharacters} chữ · {progress.finishedWords}/{vocabulary.length} từ hoàn thành</span>
         </div>
 
         <div className="study-layout">
@@ -138,7 +169,7 @@ export default function App() {
                 <button key={`${entry.id}-${index}`} className={`vocabulary-item ${index === wordIndex ? 'is-active' : ''}`} onClick={() => selectWord(index)} aria-current={index === wordIndex ? 'true' : undefined}>
                   <span className="vocabulary-check">{completedIds.includes(entry.id) ? '✓' : ''}</span>
                   <span className="vocabulary-word">{entry.word}</span>
-                  <span className="vocabulary-pinyin">{entry.pinyin || '—'}</span>
+                  <span className="vocabulary-pinyin">{formatPinyin(entry.pinyin) || '—'}</span>
                 </button>
               ))}
             </nav>
@@ -168,11 +199,15 @@ export default function App() {
                       key={`${item.id}-${characterIndex}-${currentCharacter}`}
                       character={currentCharacter}
                       onComplete={advanceCharacter}
-                      onSkip={advanceCharacter}
+                      onSkip={skipCharacter}
+                      drawingWidth={settings.drawingWidth}
+                      showOutline={settings.showOutline}
+                      onDrawingWidthChange={(drawingWidth) => setSettings((current) => ({ ...current, drawingWidth }))}
+                      onShowOutlineChange={(showOutline) => setSettings((current) => ({ ...current, showOutline }))}
                     />
                   ) : <div className="complete-state"><strong>Từ này không có ký tự để luyện.</strong><button className="button button-primary" onClick={advanceWord}>Tiếp theo →</button></div>}
                 </div>
-                {!isComplete && <div className="practice-hint">Viết các nét theo đúng thứ tự trong ô vuông.</div>}
+                {!isComplete && <div className="practice-hint">Đã viết đúng {finishedPositions.length}/{characters.length} chữ trong từ này.</div>}
                 <div className="word-navigation">
                   <button className="button button-quiet" onClick={previousWord} disabled={wordIndex === 0}>← Từ trước</button>
                   <button className="button button-secondary" onClick={advanceWord} disabled={wordIndex >= vocabulary.length - 1}>Bỏ qua từ</button>
@@ -183,14 +218,14 @@ export default function App() {
               <aside className="word-card" aria-label="Thông tin từ vựng">
                 <div className="word-card-top"><span className="section-kicker">TỪ VỰNG</span><span className="level-tag">{isComplete ? 'ĐÃ HỌC' : 'ĐANG HỌC'}</span></div>
                 <div className="word-hanzi" lang="zh-Hans">{item.word}</div>
-                <div className="word-pinyin">{item.pinyin || 'Chưa có Pinyin'}</div>
+                <div className="word-pinyin">{formatPinyin(item.pinyin) || 'Chưa có Pinyin'}</div>
                 <div className="word-meaning">{item.meaning || 'Chưa có nghĩa tiếng Việt'}</div>
                 <div className="word-divider" />
                 <p className="word-note">Mỗi chữ được luyện riêng theo thứ tự trong từ. Có thể chọn từ khác trong danh sách bất cứ lúc nào.</p>
                 <div className="character-chips" aria-label="Các chữ trong từ">
                   {characters.map((character, index) => (
-                    <span key={`${character}-${index}`} className={`character-chip ${index === characterIndex && !isComplete ? 'is-current' : ''} ${index < characterIndex || isComplete ? 'is-done' : ''}`}>
-                      {index < characterIndex || isComplete ? '✓' : character}
+                    <span key={`${character}-${index}`} className={`character-chip ${index === characterIndex && !isComplete ? 'is-current' : ''} ${finishedPositions.includes(index) ? 'is-done' : ''}`}>
+                      {finishedPositions.includes(index) ? '✓' : character}
                     </span>
                   ))}
                 </div>

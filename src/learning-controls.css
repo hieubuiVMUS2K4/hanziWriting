@@ -1,0 +1,58 @@
+.practice-settings {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px 20px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8f7f2;
+}
+.outline-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.outline-control input { width: 18px; height: 18px; accent-color: var(--green); }
+.pen-width-control { display: grid; gap: 4px; min-width: 0; font-size: 12px; }
+.pen-width-control > span { display: flex; justify-content: space-between; gap: 8px; }
+.pen-width-control output { color: var(--green); font-variant-numeric: tabular-nums; }
+.pen-width-control input { width: 100%; min-width: 0; height: 28px; margin: 0; accent-color: var(--green); cursor: pointer; }
+.practice-mode-note { grid-column: 1 / -1; margin: 0; font-size: 11px; line-height: 1.5; color: #647568; }
+.practice-settings input:focus-visible { outline: 3px solid #cfad93; outline-offset: 3px; border-radius: 3px; }
+/* Hanzi Writer SVG user paths use rounded joins; its model strokes use miter joins. */
+.writer-host svg path[stroke-linejoin="round"] {
+  stroke-width: var(--drawing-width, 7px);
+  vector-effect: non-scaling-stroke;
+}
+.app-notice { margin: 14px 0 0; padding: 10px 14px; border: 1px solid #d6e0d2; border-radius: 8px; background: #f0f4ed; color: #456348; font-size: 13px; line-height: 1.5; }
+
+.import-panel { padding: 24px; margin-top: 20px; width: 100%; min-width: 0; }
+.import-heading h2 { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.4; }
+.import-heading p { margin: 6px 0 18px; color: #777d74; font-size: 13px; line-height: 1.6; }
+.import-examples { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 12px; margin-bottom: 20px; }
+.import-examples > div { min-width: 0; padding: 12px 14px; background: #f7f6f0; border: 1px solid var(--line); border-radius: 7px; }
+.import-examples span { display: block; margin-bottom: 7px; font-size: 11px; font-weight: 600; color: #777d74; }
+.import-examples code { display: block; font: 13px/1.7 'DM Sans', Arial, sans-serif; color: var(--ink); overflow-wrap: anywhere; }
+.import-label { font-size: 10px; line-height: 1.6; }
+.import-panel textarea { font: 16px/1.7 'DM Sans', Arial, sans-serif; min-height: 200px; padding: 14px; width: 100%; max-width: 100%; }
+.import-panel textarea[aria-invalid="true"] { border-color: #ad5846; }
+.import-footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: center; margin-top: 14px; }
+.import-footer p { margin: 0; font-size: 12px; line-height: 1.7; max-width: 650px; }
+.import-footer .button { min-height: 44px; white-space: normal; }
+.import-errors { margin: 12px 0 0; padding: 12px 16px 12px 32px; border-radius: 7px; background: #fff0e9; overflow-wrap: anywhere; max-height: 180px; overflow: auto; }
+@media (max-width: 760px) {
+  .practice-settings { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 10px 12px; }
+  .outline-control, .pen-width-control { font-size: 13px; }
+  .pen-width-control input { height: 44px; }
+  .practice-mode-note { grid-column: 1; }
+  .import-panel { padding: 16px; }
+  .import-heading h2 { font-size: 18px; }
+  .import-examples { grid-template-columns: minmax(0, 1fr); gap: 8px; margin-bottom: 16px; }
+  .import-footer { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .import-footer .button { width: 100%; }
+}

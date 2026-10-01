@@ -31,14 +31,14 @@
 高兴	gao1xing4	vui; vui mừng
 认识	ren4shi5	quen biết
 也	ye3	cũng
-马	ma5	mã; họ Mã
+马	ma3	ngựa; họ Mã
 不	bu4	không
 小姐	xiao3jie3	cô; tiểu thư
 师傅	shi1fu5	thầy; bác tài
 去	qu4	đi
 哪里	na3li3	đâu; ở đâu
 人民	ren2min2	nhân dân
-广场	Guang3chang3	quảng trường
+广场	guang3chang3	quảng trường
 知道	zhi1dao4	biết
 了	le5	trợ từ chỉ thay đổi/hoàn thành
 远	yuan3	xa
@@ -52,7 +52,7 @@
 再见	zai4jian4	tạm biệt
 要	yao4	muốn; cần
 吃	chi1	ăn
-一点儿	yi4dian3r5	một chút
+一点儿	yi4dian3r	một chút
 个	ge4	cái; chiếc
 牛肉	niu2rou4	thịt bò
 青菜	qing1cai4	rau xanh
@@ -76,7 +76,7 @@
 苹果	ping2guo3	quả táo
 留学生	liu2xue2sheng1	du học sinh
 学生	xue2sheng1	học sinh; sinh viên
-这儿	zher4	ở đây
+这儿	zhe4r	ở đây
 这里	zhe4li3	ở đây
 学习	xue2xi2	học
 汉语	han4yu3	tiếng Trung
@@ -122,8 +122,8 @@
 快乐	kuai4le4	vui vẻ
 星期五	xing1qi1wu3	thứ Sáu
 星期	xing1qi1	tuần; thứ
-有空儿	you3kong4r5	rảnh
-空儿	kong4r5	thời gian rảnh
+有空儿	you3kong4r	rảnh
+空儿	kong4r	thời gian rảnh
 想	xiang3	muốn; nghĩ
 请	qing3	mời; xin
 晚饭	wan3fan4	bữa tối
@@ -147,7 +147,7 @@
 吧	ba5	trợ từ biểu thị đề nghị/phỏng đoán
 又……又……	you4……you4……	vừa… vừa…
 便宜	pian2yi5	rẻ
-怎么样	zen3meyang4	thế nào
+怎么样	zen3me5yang4	thế nào
 菜	cai4	món ăn; rau
 有名	you3ming2	nổi tiếng
 好吃	hao3chi1	ngon

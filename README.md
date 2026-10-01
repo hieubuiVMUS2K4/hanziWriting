@@ -37,11 +37,15 @@ npm run build
 - Có từ trước, từ tiếp theo, bỏ qua từ và bỏ qua ký tự thiếu stroke data.
 - Hiển thị phần trăm, vị trí trong danh sách và các từ đã hoàn thành.
 
+Tiến độ được tính bằng số vị trí ký tự đã viết đúng chia cho tổng ký tự trong danh sách. Mỗi vị trí chỉ được tính một lần; hai từ trùng ở hai dòng được theo dõi riêng. Chọn từ, bỏ qua chữ/từ hoặc xem animation không cộng tiến độ. Chỉ khi mọi chữ trong một từ đã được viết đúng thì từ đó mới được đánh dấu hoàn thành. Phần đã học được giữ lại khi chuyển từ; **Luyện lại từ này** xóa kết quả của riêng từ đang chọn.
+
 ### Phase 5 — Lưu cục bộ (đã hoàn thành)
 
 - Danh sách, vị trí hiện tại và từ đã luyện lưu bằng `localStorage`.
 - Dữ liệu trống/sai định dạng quay về dữ liệu khởi tạo.
 - Dữ liệu Pleco gốc vẫn được giữ riêng trong file TXT.
+
+Tiến độ theo từng chữ lưu ở `hanziwriting.progress.v2`; bản mới chuyển các từ đã đánh dấu hoàn thành trong dữ liệu v1 sang v2. Bản v1 không ghi riêng lượt viết đúng và lượt bỏ qua, nên kết quả từ cũ được giữ nguyên; dùng **Luyện lại từ này** để xóa kết quả cũ của từ đó nếu cần. Độ dày nét bút và trạng thái nét mẫu lưu ở `hanziwriting.settings.v1`.
 
 ### Phase 6 — Responsive và hoàn thiện (đã hoàn thành)
 
@@ -52,6 +56,16 @@ npm run build
 - Thông báo khi không tải được dữ liệu nét và cho phép bỏ qua chữ đó.
 
 Đã kiểm tra bằng Chrome với viewport 320–1440px: không tràn ngang, chọn từ và nhập cấu trúc dài bằng touch, viết hoàn chỉnh chữ `你` rồi chuyển sang `好` sau khi resize giữa bài luyện. Các kiểm tra này dùng trình duyệt mô phỏng mobile; chưa kiểm tra trên điện thoại thật.
+
+## Cài đặt luyện viết
+
+- **Độ dày nét bút**: thanh trượt 2–16px điều chỉnh nét đang vẽ, không làm mất những nét đã viết đúng.
+- Bỏ chọn **Hiện nét mẫu** để tự viết trên ô trống. Chế độ này cũng tắt gợi ý nét tự động khi viết sai; vẫn kiểm tra thứ tự nét.
+- Có thể xem animation chủ động, sau đó tiếp tục tại nét chưa hoàn thành. **Viết lại** bắt đầu lại chữ hiện tại.
+
+Pinyin trên website hiển thị dấu thanh, ví dụ `ni3hao3` → `nǐ hǎo`. JSON và file Pleco giữ tone number để import. Đã sửa các mục `马`, `怎么样`, `一点儿`, `这儿`, `有空儿`, `空儿` và cách viết hoa `广场`; đuôi 儿 hóa không được ghi như một âm tiết `r5`. Các mục mặc định đã lưu cục bộ tự nhận phiên âm được cập nhật. Tham khảo [CC-CEDICT/MDBG](https://www.mdbg.net/chinese/dictionary?page=worddict&wdqb=%E9%A9%AC&wdrst=0).
+
+Form nhập từ nhận cả Pinyin số và dấu thanh; giữ từ trùng và bỏ dòng trống. Nếu có dòng sai, form hiển thị lỗi và giữ nguyên dữ liệu nhập cùng danh sách hiện tại để sửa trước khi nhập lại.
 
 ## Thêm dữ liệu mặc định
 
