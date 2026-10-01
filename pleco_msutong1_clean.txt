@@ -1,0 +1,176 @@
+你好	ni3hao3	xin chào
+老师	lao3shi1	giáo viên
+您好	nin2hao3	xin chào (lịch sự)
+你们	ni3men5	các bạn
+王	Wang2	họ Vương
+叫	jiao4	gọi; tên là
+什么	shen2me5	gì; cái gì
+名字	ming2zi5	tên
+我	wo3	tôi
+呢	ne5	trợ từ hỏi lại/tiếp tục chủ đề
+是	shi4	là
+哪	na3	nào; cái nào
+国	guo2	nước; quốc gia
+人	ren2	người
+中国	Zhong1guo2	Trung Quốc
+美国	Mei3guo2	Mỹ
+南非	Nan2fei1	Nam Phi
+越南	Yue4nan2	Việt Nam
+英国	Ying1guo2	Anh
+韩国	Han2guo2	Hàn Quốc
+请问	qing3wen4	xin hỏi
+贵姓	gui4xing4	quý danh; họ
+这	zhe4	này; cái này
+的	de5	trợ từ sở hữu; của
+名片	ming2pian4	danh thiếp
+对不起	dui4bu5qi3	xin lỗi
+没有	mei2you3	không có
+有	you3	có
+没关系	mei2guan1xi5	không sao
+很	hen3	rất
+高兴	gao1xing4	vui; vui mừng
+认识	ren4shi5	quen biết
+也	ye3	cũng
+马	ma5	mã; họ Mã
+不	bu4	không
+小姐	xiao3jie3	cô; tiểu thư
+师傅	shi1fu5	thầy; bác tài
+去	qu4	đi
+哪里	na3li3	đâu; ở đâu
+人民	ren2min2	nhân dân
+广场	Guang3chang3	quảng trường
+知道	zhi1dao4	biết
+了	le5	trợ từ chỉ thay đổi/hoàn thành
+远	yuan3	xa
+近	jin4	gần
+到	dao4	đến; tới
+多少	duo1shao5	bao nhiêu
+钱	qian2	tiền
+块	kuai4	đồng (tiền)
+谢谢	xie4xie5	cảm ơn
+不客气	bu2ke4qi5	không có gì
+再见	zai4jian4	tạm biệt
+要	yao4	muốn; cần
+吃	chi1	ăn
+一点儿	yi4dian3r5	một chút
+个	ge4	cái; chiếc
+牛肉	niu2rou4	thịt bò
+青菜	qing1cai4	rau xanh
+还	hai2	còn; vẫn
+两	liang3	hai
+碗	wan3	bát
+米饭	mi3fan4	cơm
+快	kuai4	nhanh
+饿	e4	đói
+喝	he1	uống
+杯	bei1	cốc; ly
+茶	cha2	trà
+奶茶	nai3cha2	trà sữa
+大	da4	to; lớn
+小	xiao3	nhỏ
+还是	hai2shi4	hay là (câu hỏi lựa chọn)
+咖啡	ka1fei1	cà phê
+一共	yi2gong4	tổng cộng
+在	zai4	ở; tại
+工作	gong1zuo4	làm việc
+苹果	ping2guo3	quả táo
+留学生	liu2xue2sheng1	du học sinh
+学生	xue2sheng1	học sinh; sinh viên
+这儿	zher4	ở đây
+这里	zhe4li3	ở đây
+学习	xue2xi2	học
+汉语	han4yu3	tiếng Trung
+对	dui4	đúng; đối với
+男朋友	nan2peng2you5	bạn trai
+朋友	peng2you5	bạn bè
+男	nan2	nam; đàn ông
+做	zuo4	làm
+大学	da4xue2	đại học
+教	jiao1	dạy
+英语	ying1yu3	tiếng Anh
+女朋友	nü3peng2you5	bạn gái
+她	ta1	cô ấy
+他	ta1	anh ấy
+中学	zhong1xue2	trung học cơ sở
+高中	gao1zhong1	trung học phổ thông
+小学	xiao3xue2	trường tiểu học
+附近	fu4jin4	gần đây; lân cận
+银行	yin2hang2	ngân hàng
+家	jia1	nhà; lượng từ cho cửa hàng/gia đình
+从	cong2	từ
+往	wang3	hướng về
+前	qian2	phía trước
+走	zou3	đi; đi bộ
+然后	ran2hou4	sau đó
+左	zuo3	bên trái
+拐	guai3	rẽ
+饭店	fan4dian4	nhà hàng; quán ăn
+就	jiu4	liền; chính là
+对面	dui4mian4	đối diện
+面	mian4	phía; mặt
+书店	shu1dian4	nhà sách
+超市	chao1shi4	siêu thị
+右	you4	bên phải
+今天	jin1tian1	hôm nay
+真	zhen1	thật; thật là
+漂亮	piao4liang5	đẹp; xinh đẹp
+事	shi4	việc; chuyện
+生日	sheng1ri4	sinh nhật
+几	ji3	mấy; bao nhiêu
+号	hao4	ngày (trong tháng)
+月	yue4	tháng
+快乐	kuai4le4	vui vẻ
+星期五	xing1qi1wu3	thứ Sáu
+星期	xing1qi1	tuần; thứ
+有空儿	you3kong4r5	rảnh
+空儿	kong4r5	thời gian rảnh
+想	xiang3	muốn; nghĩ
+请	qing3	mời; xin
+晚饭	wan3fan4	bữa tối
+为什么	wei4shen2me5	tại sao
+太……了	tai4……le5	quá… rồi
+那	na4	vậy thì; kia
+晚上	wan3shang5	buổi tối
+看	kan4	xem; nhìn
+电影	dian4ying3	phim
+学校	xue2xiao4	trường học
+见	jian4	gặp
+喜欢	xi3huan5	thích
+非常	fei1chang2	rất; vô cùng
+都	dou1	đều
+明天	ming2tian1	ngày mai
+电影院	dian4ying3yuan4	rạp chiếu phim
+怎么	zen3me5	thế nào; làm sao
+坐	zuo4	ngồi; đi bằng
+地铁	di4tie3	tàu điện ngầm
+出租车	chu1zu1che1	xe taxi
+吧	ba5	trợ từ biểu thị đề nghị/phỏng đoán
+又……又……	you4……you4……	vừa… vừa…
+便宜	pian2yi5	rẻ
+怎么样	zen3meyang4	thế nào
+菜	cai4	món ăn; rau
+有名	you3ming2	nổi tiếng
+好吃	hao3chi1	ngon
+走路	zou3lu4	đi bộ
+公交车	gong1jiao1che1	xe buýt
+口	kou3	lượng từ chỉ thành viên gia đình
+爸爸	ba4ba5	bố
+妈妈	ma1ma5	mẹ
+弟弟	di4di5	em trai
+妹妹	mei4mei5	em gái
+照片	zhao4pian4	ảnh
+律师	lü4shi1	luật sư
+和	he2	và; với
+今年	jin1nian2	năm nay
+多大	duo1da4	bao nhiêu tuổi
+岁	sui4	tuổi
+家人	jia1ren2	người nhà
+他们	ta1men5	họ
+们	men5	hậu tố số nhiều
+谁	shei2	ai
+哥哥	ge1ge5	anh trai
+姐姐	jie3jie5	chị gái
+只	zhi1	lượng từ cho động vật
+狗	gou3	chó
+可爱	ke3ai4	dễ thương
+医生	yi1sheng1	bác sĩ
