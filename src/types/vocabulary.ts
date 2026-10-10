@@ -3,6 +3,7 @@ export interface VocabularyItem {
   word: string;
   pinyin: string;
   meaning: string;
+  topic?: string;
 }
 
 export interface ImportResult {

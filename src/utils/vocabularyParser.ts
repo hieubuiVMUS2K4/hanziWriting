@@ -15,8 +15,8 @@ export function parseVocabulary(input: string): ImportResult {
         ? line.split('|').map((field) => field.trim())
         : [line.trim()];
 
-    if (fields.length !== 1 && fields.length !== 3) {
-      errors.push(`Dòng ${index + 1}: cần một từ hoặc đúng 3 trường Hanzi, Pinyin, nghĩa.`);
+    if (fields.length !== 1 && fields.length !== 3 && fields.length !== 4) {
+      errors.push(`Dòng ${index + 1}: cần một từ, 3 trường Hanzi, Pinyin, nghĩa hoặc 4 trường có thêm chủ đề.`);
       return;
     }
     if (!fields[0]) {
@@ -34,6 +34,7 @@ export function parseVocabulary(input: string): ImportResult {
       word: fields[0],
       pinyin: fields[1] ?? '',
       meaning: fields[2] ?? '',
+      ...(fields[3] ? { topic: fields[3] } : {}),
     });
   });
 
@@ -44,6 +45,7 @@ export function isVocabularyList(value: unknown): value is VocabularyItem[] {
   return Array.isArray(value) && value.length > 0 && value.every((item) =>
     typeof item === 'object' && item !== null &&
     typeof item.id === 'string' && typeof item.word === 'string' &&
-    typeof item.pinyin === 'string' && typeof item.meaning === 'string' && getCharacters(item.word).length > 0,
+    typeof item.pinyin === 'string' && typeof item.meaning === 'string' &&
+    (item.topic === undefined || typeof item.topic === 'string') && getCharacters(item.word).length > 0,
   ) && new Set(value.map((item) => item.id)).size === value.length;
 }

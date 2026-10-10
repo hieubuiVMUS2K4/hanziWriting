@@ -6,6 +6,7 @@ Hán Tự chạy trực tiếp trong trình duyệt với **React, TypeScript, V
 
 ## Tính năng
 
+- **Từ vựng theo chủ đề:** chọn một trong 13 chủ đề có sẵn hoặc **Tất cả**. Danh sách, chuyển từ và tiến độ học theo nhóm đang chọn; kết quả đã học được giữ khi đổi chủ đề.
 - **Luyện viết từng chữ:** kiểm tra thứ tự nét, phản hồi khi viết đúng hoặc sai và tự chuyển sang chữ chưa hoàn thành.
 - **Xem thứ tự nét:** phát hoạt ảnh minh họa rồi tiếp tục bài luyện.
 - **Tự kiểm tra trí nhớ:** ẩn nét mẫu hoặc ẩn cả gợi ý chữ Hán để viết dựa trên Pinyin và nghĩa.
@@ -41,6 +42,7 @@ Mở địa chỉ được Vite hiển thị trong terminal.
 | `npm ci` | Cài dependency theo `package-lock.json` |
 | `npm run dev` | Khởi động máy chủ phát triển |
 | `npm run build` | Kiểm tra TypeScript và tạo bản production trong `dist/` |
+| `npm test` | Kiểm tra chủ đề, định dạng nhập và tiến độ khi lọc từ |
 | `npm run preview` | Xem bản build production trên máy cục bộ |
 
 Để xem bản production:
@@ -57,6 +59,8 @@ npm run preview
 3. Dùng **Xem thứ tự nét** khi cần xem mẫu hoặc **Viết lại** để bắt đầu lại chữ hiện tại.
 4. Mở cài đặt bằng biểu tượng bánh răng để điều chỉnh độ dày nét bút, ẩn nét mẫu hoặc ẩn gợi ý chữ Hán.
 5. Hoàn thành mọi chữ trong từ, rồi chọn **Từ chưa hoàn thành** để tiếp tục.
+
+Chọn **Chủ đề** phía trên danh sách để học từng nhóm. **Tất cả** hiển thị toàn bộ từ vựng, gồm cả từ chưa phân chủ đề. Ứng dụng nhớ lựa chọn khi tải lại trang. Tiến độ và các nút chuyển/bỏ qua từ chỉ áp dụng cho nhóm đang chọn; chuyển nhóm không xóa kết quả đã học.
 
 Khi ẩn gợi ý chữ Hán, ứng dụng ẩn chữ và nét mẫu, đồng thời vô hiệu hóa nút xem thứ tự nét. Khi chỉ ẩn nét mẫu, chữ Hán vẫn hiển thị bên ngoài ô viết; gợi ý nét tự động được tắt nhưng bài luyện vẫn kiểm tra thứ tự nét.
 
@@ -92,6 +96,15 @@ Dùng dấu `|` hoặc ký tự TAB để phân cách đúng ba trường:
 
 Có thể dán trực tiếp nội dung từ [pleco_msutong1_clean.txt](./pleco_msutong1_clean.txt), vốn sử dụng TAB giữa các trường.
 
+Thêm trường thứ tư để gắn chủ đề (dùng `|` hoặc TAB):
+
+```text
+你好 | ni3hao3 | xin chào | Chào hỏi
+老师 | lao3shi1 | giáo viên | Học tập
+```
+
+Tên chủ đề được lấy từ dữ liệu nhập. Dòng không có chủ đề hoặc để trống trường thứ tư thuộc nhóm **Chưa phân chủ đề**. Nhập danh sách mới đưa bộ lọc về **Tất cả**.
+
 Ứng dụng nhận Pinyin có số hoặc dấu thanh. Pinyin dạng số được chuyển sang dấu thanh khi hiển thị, ví dụ `ni3hao3` → `nǐ hǎo`. Dòng trống được bỏ qua; thứ tự và các từ trùng được giữ nguyên.
 
 Nếu có dòng không hợp lệ, ứng dụng hiển thị lỗi theo số dòng và giữ danh sách hiện tại để bạn sửa nội dung trước khi nhập lại.
@@ -108,18 +121,22 @@ Dữ liệu mặc định nằm trong [src/data/vocabulary.json](./src/data/voca
     "id": "hello",
     "word": "你好",
     "pinyin": "ni3hao3",
-    "meaning": "xin chào"
+    "meaning": "xin chào",
+    "topic": "Chào hỏi"
   },
   {
     "id": "teacher",
     "word": "老师",
     "pinyin": "lao3shi1",
-    "meaning": "giáo viên"
+    "meaning": "giáo viên",
+    "topic": "Học tập"
   }
 ]
 ```
 
 Mỗi mục cần có `id` duy nhất, `word` chứa ít nhất một chữ Hán và các trường `pinyin`, `meaning` dạng chuỗi.
+
+Trường `topic` là chuỗi tùy chọn. Các từ mặc định đã lưu từ phiên bản cũ được bổ sung chủ đề tương ứng theo `id` và `word`, giữ nguyên tiến độ. Từ nhập riêng thiếu chủ đề vẫn dùng được.
 
 Ứng dụng sử dụng các khóa `localStorage` sau:
 
@@ -128,6 +145,7 @@ Mỗi mục cần có `id` duy nhất, `word` chứa ít nhất một chữ Hán
 | `hanziwriting.vocabulary.v1` | Danh sách từ vựng |
 | `hanziwriting.progress.v2` | Vị trí học và các chữ đã hoàn thành |
 | `hanziwriting.settings.v1` | Độ dày nét bút và cài đặt gợi ý |
+| `hanziwriting.topic.v1` | Chủ đề đang chọn; chuỗi rỗng là Tất cả |
 
 Dữ liệu được lưu riêng theo trình duyệt và địa chỉ website, không đồng bộ giữa các thiết bị. Xóa dữ liệu website sẽ xóa danh sách tùy chỉnh, tiến độ và cài đặt. Dữ liệu trên localhost cũng độc lập với dữ liệu trên tên miền Vercel.
 
