@@ -1,9 +1,13 @@
 import type { ImportResult, VocabularyItem } from '../types/vocabulary';
 import { getCharacters } from './progress';
 
-export function parseVocabulary(input: string): ImportResult {
+export function parseVocabulary(input: string, topic?: string): ImportResult {
   const items: VocabularyItem[] = [];
   const errors: string[] = [];
+  const selectedTopic = topic?.trim();
+  if (topic !== undefined && !selectedTopic) {
+    return { items, errors: ['Nhập tên chủ đề cho danh sách từ vựng.'] };
+  }
 
   input.split(/\r?\n/).forEach((rawLine, index) => {
     const line = rawLine.replace(/^\uFEFF/, '');
@@ -34,7 +38,7 @@ export function parseVocabulary(input: string): ImportResult {
       word: fields[0],
       pinyin: fields[1] ?? '',
       meaning: fields[2] ?? '',
-      ...(fields[3] ? { topic: fields[3] } : {}),
+      ...(selectedTopic || fields[3] ? { topic: selectedTopic || fields[3] } : {}),
     });
   });
 

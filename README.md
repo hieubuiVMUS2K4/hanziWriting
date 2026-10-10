@@ -12,7 +12,7 @@ Hán Tự chạy trực tiếp trong trình duyệt với **React, TypeScript, V
 - **Tự kiểm tra trí nhớ:** ẩn nét mẫu hoặc ẩn cả gợi ý chữ Hán để viết dựa trên Pinyin và nghĩa.
 - **Tùy chỉnh nét bút:** điều chỉnh độ dày từ 2 đến 16 px.
 - **Quản lý danh sách học:** chọn từ trực tiếp, chuyển từ trước/sau, bỏ qua chữ hoặc từ và luyện lại từ đã hoàn thành.
-- **Nhập từ vựng riêng:** hỗ trợ danh sách chữ Hán và định dạng ba trường từ Pleco.
+- **Nhập chủ đề và từ vựng:** tạo chủ đề mới hoặc bổ sung từ cho chủ đề có sẵn; hỗ trợ danh sách chữ Hán và định dạng ba trường từ Pleco, giữ nguyên từ và tiến độ đã học.
 - **Theo dõi tiến độ:** hiển thị số chữ đã viết đúng, số từ hoàn thành và tỷ lệ hoàn thành toàn danh sách.
 - **Giao diện thích ứng:** sử dụng trên máy tính và thiết bị di động, hỗ trợ chuột, cảm ứng và bút cảm ứng.
 
@@ -74,9 +74,9 @@ Tiến độ toàn danh sách bằng số vị trí chữ đã viết đúng chi
 - **Luyện lại từ này** xóa kết quả của từ đang chọn.
 - Các mẫu như `太……了` chỉ luyện chữ Hán; dấu câu không được tính vào tiến độ.
 
-## Nhập từ vựng
+## Nhập chủ đề và từ vựng
 
-Nhấn **Nhập từ**, dán danh sách và chọn **Nhập danh sách**. Mỗi dòng tương ứng với một mục học.
+Nhấn **Nhập chủ đề**, nhập tên chủ đề mới hoặc chọn tên có sẵn từ gợi ý. Dán danh sách từ cho chủ đề đó rồi chọn **Thêm từ vào chủ đề**. Mỗi dòng tương ứng với một mục học. Nếu đang học một chủ đề, ô tên sẽ được điền sẵn bằng chủ đề đang chọn.
 
 ### Chỉ chữ Hán
 
@@ -96,20 +96,20 @@ Dùng dấu `|` hoặc ký tự TAB để phân cách đúng ba trường:
 
 Có thể dán trực tiếp nội dung từ [pleco_msutong1_clean.txt](./pleco_msutong1_clean.txt), vốn sử dụng TAB giữa các trường.
 
-Thêm trường thứ tư để gắn chủ đề (dùng `|` hoặc TAB):
+Chủ đề được nhập một lần trong ô **Tên chủ đề** và áp dụng cho mọi từ bên dưới. Ví dụ, nhập tên `Chào hỏi`, rồi dán:
 
 ```text
-你好 | ni3hao3 | xin chào | Chào hỏi
-老师 | lao3shi1 | giáo viên | Học tập
+你好 | ni3hao3 | xin chào
+您好 | nin2hao3 | xin chào (lịch sự)
 ```
 
-Tên chủ đề được lấy từ dữ liệu nhập. Dòng không có chủ đề hoặc để trống trường thứ tư thuộc nhóm **Chưa phân chủ đề**. Nhập danh sách mới đưa bộ lọc về **Tất cả**.
+Tên chủ đề không được để trống. Nếu dùng tên chủ đề có sẵn, các từ sẽ được thêm vào nhóm đó. Danh sách cũ có trường chủ đề thứ tư vẫn nhập được, nhưng mọi dòng đều nhận tên từ ô **Tên chủ đề**. Từ chưa phân chủ đề đã lưu trước đây vẫn xuất hiện trong **Chưa phân chủ đề** và **Tất cả**.
 
 Ứng dụng nhận Pinyin có số hoặc dấu thanh. Pinyin dạng số được chuyển sang dấu thanh khi hiển thị, ví dụ `ni3hao3` → `nǐ hǎo`. Dòng trống được bỏ qua; thứ tự và các từ trùng được giữ nguyên.
 
 Nếu có dòng không hợp lệ, ứng dụng hiển thị lỗi theo số dòng và giữ danh sách hiện tại để bạn sửa nội dung trước khi nhập lại.
 
-> Nhập thành công sẽ thay thế danh sách hiện tại và bắt đầu tiến độ mới. Hãy giữ bản gốc danh sách của bạn nếu cần dùng lại.
+Nhập thành công sẽ bổ sung từ vào danh sách hiện tại, giữ tiến độ cũ và tự chuyển sang chủ đề vừa nhập để luyện từ mới đầu tiên. Chủ đề mới cũng xuất hiện trong bộ lọc và mọi từ mới đều có trong **Tất cả**.
 
 ## Dữ liệu và lưu trữ
 
@@ -180,7 +180,7 @@ src/
 ├── main.tsx                      # Khởi tạo ứng dụng React
 ├── components/
 │   ├── CharacterPractice.tsx     # Tích hợp Hanzi Writer và bài luyện từng chữ
-│   ├── ImportVocabulary.tsx      # Giao diện nhập danh sách
+│   ├── ImportVocabulary.tsx      # Giao diện nhập chủ đề và từ vựng
 │   └── PracticeSettings.tsx      # Cài đặt luyện viết
 ├── data/
 │   └── vocabulary.json           # Từ vựng mặc định

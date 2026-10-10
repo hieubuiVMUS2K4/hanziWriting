@@ -66,3 +66,30 @@ test('filtering retains original indexes and per-word progress across topics', (
   assert.deepEqual(restoreProgress(items, { wordIndex: 2, characterIndex: 1, completedCharacters: completion }).completedCharacters, completion);
   assert.equal(calculateProgress(select('Ăn uống'), completion).finishedCharacters, 1);
 });
+
+test('a required topic applies to every imported word, including legacy fourth fields', () => {
+  const result = parseVocabulary('你好\n您好 | nin2hao3 | xin chào | Chủ đề cũ\n老师\tlao3shi1\tgiáo viên', '  Chủ đề mới  ');
+  assert.deepEqual(result.errors, []);
+  assert.equal(result.items.length, 3);
+  assert.ok(result.items.every(item => item.topic === 'Chủ đề mới'));
+  assert.equal(parseVocabulary('你好', '').items.length, 0);
+  assert.equal(parseVocabulary('你好', '  ').errors.length, 1);
+});
+
+test('adding words to new and existing topics retains saved vocabulary and progress', () => {
+  const original = parseVocabulary('茶 | cha2 | trà', 'Ăn uống').items;
+  const saved = { wordIndex: 0, characterIndex: 0, completedCharacters: { [original[0].id]: [0] } };
+  const additions = parseVocabulary('米饭 | mi3fan4 | cơm', 'Ăn uống').items;
+  const newTopic = parseVocabulary('你好 | ni3hao3 | xin chào', 'Chào hỏi').items;
+  const combined = [...original, ...additions, ...newTopic];
+  const restored = restoreProgress(combined, JSON.parse(JSON.stringify(saved)));
+  assert.ok(isVocabularyList(combined));
+  assert.deepEqual(combined[0], original[0]);
+  assert.deepEqual(getTopicIndexes(combined, 'Ăn uống'), [0, 1]);
+  assert.deepEqual(getTopicIndexes(combined, 'Chào hỏi'), [2]);
+  assert.equal(getTopicIndexes(combined, ALL_TOPICS).length, 3);
+  assert.deepEqual(restored.completedCharacters[original[0].id], [0]);
+  assert.deepEqual(restored.completedCharacters[additions[0].id], []);
+  assert.deepEqual(restored.completedCharacters[newTopic[0].id], []);
+  assert.equal(calculateProgress(combined, restored.completedCharacters).finishedWords, 1);
+});

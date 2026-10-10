@@ -140,12 +140,14 @@ export default function App() {
   }
 
   function importItems(items: VocabularyItem[]) {
-    setVocabulary(items);
-    setSelectedTopic(ALL_TOPICS);
-    setWordIndex(0);
+    if (!items.length) return;
+    const topic = getTopic(items[0]);
+    setVocabulary((current) => [...current, ...items]);
+    setSelectedTopic(topic);
+    setWordIndex(vocabulary.length);
     setCharacterIndex(0);
-    setCompletion({});
-    setNotice(`Đã nhập ${items.length} dòng từ vựng. Bắt đầu danh sách mới.`);
+    setShowVocabulary(false);
+    setNotice(`Đã thêm ${items.length} từ vào chủ đề “${topic}”.`);
   }
 
   function advanceWord() { selectWord(visibleIndexes[Math.min(visibleWordIndex + 1, visibleIndexes.length - 1)]); }
@@ -161,11 +163,11 @@ export default function App() {
           <span>Hán Tự<span className="brand-subtitle">GÓC HỌC TIẾNG TRUNG</span></span>
         </a>
         <button className="import-toggle" onClick={() => setShowImporter((show) => !show)} aria-expanded={showImporter} aria-controls="import-area">
-          <span aria-hidden="true">＋</span> Nhập từ
+          <span aria-hidden="true">＋</span> Nhập chủ đề
         </button>
       </header>
 
-      {showImporter && <div id="import-area"><ImportVocabulary onImport={(items) => { importItems(items); setShowImporter(false); }} /></div>}
+      {showImporter && <div id="import-area"><ImportVocabulary topics={topics} initialTopic={selectedTopic} onImport={(items) => { importItems(items); setShowImporter(false); }} /></div>}
       {notice && <p className="app-notice" role="status">{notice}</p>}
 
       <section className="workspace" aria-labelledby="page-title">

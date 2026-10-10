@@ -64,6 +64,10 @@
 .import-examples span { display: block; margin-bottom: 7px; font-size: 11px; font-weight: 600; color: #777d74; }
 .import-examples code { display: block; font: 13px/1.7 'DM Sans', Arial, sans-serif; color: var(--ink); overflow-wrap: anywhere; }
 .import-label { font-size: 10px; line-height: 1.6; }
+.import-topic-input { display: block; width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); color: var(--ink); font: inherit; font-size: 16px; }
+.import-topic-input:focus-visible { outline: 3px solid #e9d6c8; border-color: #cfa98e; }
+.import-topic-input[aria-invalid="true"] { border-color: #ad5846; }
+.import-topic-help { margin: 8px 0 18px; color: #777d74; font-size: 12px; line-height: 1.6; }
 .import-panel textarea { font: 16px/1.7 'DM Sans', Arial, sans-serif; min-height: 200px; padding: 14px; width: 100%; max-width: 100%; }
 .import-panel textarea[aria-invalid="true"] { border-color: #ad5846; }
 .import-footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: center; margin-top: 14px; }
