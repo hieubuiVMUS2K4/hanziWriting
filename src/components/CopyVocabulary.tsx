@@ -17,6 +17,20 @@ export default function CopyVocabulary({ items, currentItems }: { items: Vocabul
     : row.join(format === 'tsv' ? '\t' : ' — ')).join('\n');
   useEffect(() => { setStatus(''); }, [content]);
   function close() { dialog.current?.close(); trigger.current?.focus(); }
+  function download() {
+    const extension = format === 'text' ? 'txt' : format;
+    const mime = format === 'csv' ? 'text/csv' : format === 'tsv' ? 'text/tab-separated-values' : 'text/plain';
+    const blob = new Blob(['\uFEFF', content.replace(/\n/g, '\r\n')], { type: `${mime};charset=utf-8` });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `tu-vung-${scope === 'all' ? 'tat-ca' : 'chu-de'}.${extension}`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setStatus('Đã tạo tệp tải xuống.');
+  }
   return <>
     <div className="copy-list-tools"><button ref={trigger} className="button button-quiet" onClick={() => { setStatus(''); dialog.current?.showModal(); }}>Hiện toàn bộ từ để copy</button></div>
     <dialog ref={dialog} className="copy-dialog" aria-labelledby="copy-title" onClick={(event) => { if (event.target === event.currentTarget) close(); }}>
@@ -29,7 +43,7 @@ export default function CopyVocabulary({ items, currentItems }: { items: Vocabul
         <fieldset className="copy-fields"><legend>Nội dung mỗi từ</legend><span>Chữ Hán</span><label><input type="checkbox" checked={pinyin} onChange={(event) => setPinyin(event.target.checked)} /> Pinyin</label><label><input type="checkbox" checked={meaning} onChange={(event) => setMeaning(event.target.checked)} /> Nghĩa tiếng Việt</label></fieldset>
         <label className="copy-preview-label" htmlFor="copy-preview">Xem trước · {selected.length} từ</label>
         <textarea id="copy-preview" className="copy-preview" readOnly value={content} spellCheck={false} onFocus={(event) => event.currentTarget.select()} />
-        <footer className="copy-dialog-footer"><p role="status">{status || 'Mỗi từ một dòng. Có thể chọn trực tiếp nội dung để sao chép.'}</p><button className="button button-secondary" onClick={async () => { try { await navigator.clipboard.writeText(content); setStatus('Đã sao chép danh sách.'); } catch { setStatus('Chọn nội dung trong ô và nhấn Ctrl+C (hoặc giữ để sao chép trên điện thoại).'); } }}>Sao chép {selected.length} từ</button></footer>
+        <footer className="copy-dialog-footer"><p role="status">{status || 'Mỗi từ một dòng. Có thể chọn trực tiếp nội dung để sao chép.'}</p><div className="copy-dialog-actions"><button className="button button-secondary" onClick={download}>Tải xuống .{format === 'text' ? 'txt' : format}</button><button className="button button-secondary" onClick={async () => { try { await navigator.clipboard.writeText(content); setStatus('Đã sao chép danh sách.'); } catch { setStatus('Chọn nội dung trong ô và nhấn Ctrl+C (hoặc giữ để sao chép trên điện thoại).'); } }}>Sao chép {selected.length} từ</button></div></footer>
       </div>
     </dialog>
   </>;

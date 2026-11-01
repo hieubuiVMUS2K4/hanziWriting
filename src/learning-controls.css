@@ -111,6 +111,7 @@
 .copy-dialog-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 18px; }
 .copy-dialog-footer p { margin: 0; font-size: 13px; line-height: 1.6; }
 .copy-dialog-footer button { flex-shrink: 0; }
+.copy-dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 @media (max-width: 600px) {
   .copy-dialog { width: calc(100vw - 20px); max-height: calc(100dvh - 20px); border-radius: 12px; }
   .copy-dialog-body { padding: 18px; }
@@ -118,4 +119,5 @@
   .copy-options { grid-template-columns: 1fr; gap: 12px; }
   .copy-dialog-footer { flex-direction: column; align-items: stretch; gap: 12px; }
   .copy-dialog-footer button { width: 100%; min-height: 44px; }
+  .copy-dialog-actions { flex-direction: column; }
 }
