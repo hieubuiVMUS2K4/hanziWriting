@@ -46,8 +46,9 @@ function readSettings(): PracticePreferences {
         ? Math.max(2, Math.min(16, raw.drawingWidth)) : 7,
       showOutline: typeof raw?.showOutline === 'boolean' ? raw.showOutline : true,
       hideHints: typeof raw?.hideHints === 'boolean' ? raw.hideHints : false,
+      hidePinyin: typeof raw?.hidePinyin === 'boolean' ? raw.hidePinyin : false,
     };
-  } catch { return { drawingWidth: 7, showOutline: true, hideHints: false }; }
+  } catch { return { drawingWidth: 7, showOutline: true, hideHints: false, hidePinyin: false }; }
 }
 
 export default function App() {
@@ -214,7 +215,7 @@ export default function App() {
                   <button key={`${entry.id}-${index}`} className={`vocabulary-item ${index === wordIndex ? 'is-active' : ''} ${done ? 'is-complete' : ''}`} onClick={() => selectWord(index)} aria-current={index === wordIndex ? 'true' : undefined}>
                     <span className="vocabulary-check" aria-hidden="true">{done ? '✓' : finished ? '◐' : '○'}</span>
                     <span className="vocabulary-word">{settings.hideHints ? `Từ ${position + 1}` : entry.word}</span>
-                    <span className="vocabulary-pinyin">{formatPinyin(entry.pinyin) || 'Chưa có Pinyin'}</span>
+                    {!settings.hidePinyin && <span className="vocabulary-pinyin">{formatPinyin(entry.pinyin) || 'Chưa có Pinyin'}</span>}
                     <span className="vocabulary-status">{done ? '✓ Hoàn thành' : finished ? `Đang học · ${finished}/${count} chữ` : 'Chưa hoàn thành'}</span>
                   </button>
                 );
@@ -270,7 +271,7 @@ export default function App() {
               <aside className="word-card" aria-label="Thông tin từ vựng">
                 <div className="word-card-top"><span className="section-kicker">TỪ VỰNG</span><span className={`level-tag ${isComplete ? 'is-complete' : ''}`}>{isComplete ? '✓ HOÀN THÀNH' : 'ĐANG HỌC'}</span></div>
                 {settings.hideHints ? <div className="word-hanzi hidden-word-prompt">Tự nhớ chữ Hán</div> : <div className="word-hanzi" lang="zh-Hans">{item.word}</div>}
-                <div className="word-pinyin">{formatPinyin(item.pinyin) || 'Chưa có Pinyin'}</div>
+                {!settings.hidePinyin && <div className="word-pinyin">{formatPinyin(item.pinyin) || 'Chưa có Pinyin'}</div>}
                 <div className="word-meaning">{item.meaning || 'Chưa có nghĩa tiếng Việt'}</div>
                 <div className="word-topic">Chủ đề: {getTopic(item)}</div>
                 <div className="word-divider" />

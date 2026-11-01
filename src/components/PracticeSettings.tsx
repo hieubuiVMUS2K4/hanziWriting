@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react';
 
-export type PracticePreferences = { drawingWidth: number; showOutline: boolean; hideHints: boolean };
+export type PracticePreferences = { drawingWidth: number; showOutline: boolean; hideHints: boolean; hidePinyin: boolean };
 type Props = { value: PracticePreferences; onChange: (value: PracticePreferences) => void };
 
 export default function PracticeSettings({ value, onChange }: Props) {
@@ -52,6 +52,10 @@ export default function PracticeSettings({ value, onChange }: Props) {
           <label className="settings-option">
             <input type="checkbox" checked={value.hideHints || !value.showOutline} disabled={value.hideHints} onChange={(event) => onChange({ ...value, showOutline: !event.target.checked })} />
             <span><strong>Ẩn nét mẫu</strong><small>Giữ chữ Hán bên ngoài ô viết, tắt nét mẫu và gợi ý nét tự động.</small></span>
+          </label>
+          <label className="settings-option">
+            <input type="checkbox" checked={value.hidePinyin} onChange={(event) => onChange({ ...value, hidePinyin: event.target.checked })} />
+            <span><strong>Ẩn pinyin</strong><small>Ẩn phiên âm trong danh sách và thông tin từ vựng.</small></span>
           </label>
           <label className="pen-width-control" htmlFor={sliderId}>
             <span>Độ dày nét bút <output htmlFor={sliderId}>{value.drawingWidth}px</output></span>
