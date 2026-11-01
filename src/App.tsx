@@ -1,8 +1,9 @@
-﻿import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import seedVocabulary from './data/vocabulary.json';
 import CharacterPractice from './components/CharacterPractice';
 import ImportVocabulary from './components/ImportVocabulary';
 import PracticeSettings from './components/PracticeSettings';
+import CopyVocabulary from './components/CopyVocabulary';
 import type { PracticePreferences } from './components/PracticeSettings';
 import type { VocabularyItem } from './types/vocabulary';
 import { isVocabularyList } from './utils/vocabularyParser';
@@ -70,15 +71,12 @@ export default function App() {
   const [notice, setNotice] = useState('');
   const [showImporter, setShowImporter] = useState(false);
   const [showVocabulary, setShowVocabulary] = useState(false);
-  const [showCopyList, setShowCopyList] = useState(false);
-  const [copyStatus, setCopyStatus] = useState('');
   const [storageAvailable, setStorageAvailable] = useState(true);
 
   const topics = useMemo(() => getTopics(vocabulary), [vocabulary]);
   const visibleIndexes = useMemo(() => getTopicIndexes(vocabulary, selectedTopic), [vocabulary, selectedTopic]);
   const visibleWordIndex = visibleIndexes.indexOf(wordIndex);
   const visibleVocabulary = visibleIndexes.map((index) => vocabulary[index]);
-  const vocabularyText = vocabulary.map((entry) => [entry.word, formatPinyin(entry.pinyin), entry.meaning].filter(Boolean).join('\t')).join('\n');
   const item = vocabulary[wordIndex];
   const characters = useMemo(() => getCharacters(item?.word ?? ''), [item?.word]);
   const finishedPositions = item ? completedPositions(item, completion) : [];
@@ -208,24 +206,7 @@ export default function App() {
                 {topics.map((topic) => <option key={topic} value={topic}>{topic} ({getTopicIndexes(vocabulary, topic).length})</option>)}
               </select>
             </div>
-            <div className="copy-list-tools">
-              <button className="button button-quiet" onClick={() => { setShowCopyList((show) => !show); setCopyStatus(''); }} aria-expanded={showCopyList} aria-controls="copy-vocabulary-list">
-                {showCopyList ? 'Đóng danh sách sao chép' : 'Hiện toàn bộ từ để copy'}
-              </button>
-              {showCopyList && <div id="copy-vocabulary-list">
-                <label htmlFor="vocabulary-copy-text">Toàn bộ {vocabulary.length} từ · chữ Hán, pinyin, nghĩa</label>
-                <textarea id="vocabulary-copy-text" readOnly value={vocabularyText} rows={10} onFocus={(event) => event.currentTarget.select()} />
-                <button className="button button-secondary" onClick={async () => {
-                  try {
-                    await navigator.clipboard.writeText(vocabularyText);
-                    setCopyStatus('Đã sao chép toàn bộ danh sách.');
-                  } catch {
-                    setCopyStatus('Hãy chọn nội dung trong ô và nhấn Ctrl+C để sao chép.');
-                  }
-                }}>Sao chép tất cả</button>
-                <p role="status">{copyStatus}</p>
-              </div>}
-            </div>
+            <CopyVocabulary items={vocabulary} currentItems={visibleVocabulary} />
             <nav id="vocabulary-list" className="vocabulary-list" aria-label="Chọn từ để luyện">
               {visibleIndexes.map((index, position) => {
                 const entry = vocabulary[index];
