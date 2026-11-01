@@ -73,6 +73,10 @@
 .import-footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: center; margin-top: 14px; }
 .import-footer p { margin: 0; font-size: 12px; line-height: 1.7; max-width: 650px; }
 .import-footer .button { min-height: 44px; white-space: normal; }
+.copy-list-tools { padding: 12px 16px; }
+.copy-list-tools label { display: block; margin: 12px 0 8px; font-size: 13px; }
+.copy-list-tools textarea { box-sizing: border-box; width: 100%; min-width: 0; padding: 10px; resize: vertical; font: inherit; font-size: 14px; line-height: 1.6; }
+.copy-list-tools p { font-size: 13px; overflow-wrap: anywhere; }
 .import-errors { margin: 12px 0 0; padding: 12px 16px 12px 32px; border-radius: 7px; background: #fff0e9; overflow-wrap: anywhere; max-height: 180px; overflow: auto; }
 @media (max-width: 760px) {
   .settings-trigger, .settings-close { width: 44px; height: 44px; }
